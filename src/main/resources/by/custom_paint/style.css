@@ -1,0 +1,12 @@
+#shapes_hbox {
+    -fx-background-color: lightgray;
+}
+
+#controls_vbox {
+    -fx-background-color: gray;
+}
+
+.button {
+    -fx-border-radius: 5px;
+    -fx-border-color: grey;
+}
