@@ -23,6 +23,7 @@ public class ellipse_shape extends shape {
 
     @Override
     public void draw(GraphicsContext gc) {
+        super.draw(gc);
         gc.fillOval(start_point.getX(), start_point.getY(), width, height);
         gc.strokeOval(start_point.getX(), start_point.getY(), width, height);
     }

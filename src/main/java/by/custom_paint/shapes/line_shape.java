@@ -16,6 +16,7 @@ public class line_shape extends shape {
 
     @Override
     public void draw(GraphicsContext gc) {
+        super.draw(gc);
         gc.strokeLine(start_point.getX(), start_point.getY(), end_point.getX(), end_point.getY());
     }
 }

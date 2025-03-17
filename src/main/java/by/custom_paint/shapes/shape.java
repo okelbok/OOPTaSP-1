@@ -42,7 +42,6 @@ public abstract class shape {
     }
 
     public void draw(GraphicsContext gc) {
-        gc.clearRect(0, 0, gc.getCanvas().getWidth(), gc.getCanvas().getHeight());
         gc.setStroke(border_color);
         gc.setLineWidth(border_width);
         gc.setFill(fill_color);

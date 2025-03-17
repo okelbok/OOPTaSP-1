@@ -16,6 +16,7 @@ public class rectangle_shape extends shape {
 
     @Override
     public void draw(GraphicsContext gc) {
+        super.draw(gc);
         gc.fillRect(start_point.getX(), start_point.getY(), end_point.getX(), end_point.getY());
         gc.strokeRect(start_point.getX(), start_point.getY(), end_point.getX(), end_point.getY());
     }

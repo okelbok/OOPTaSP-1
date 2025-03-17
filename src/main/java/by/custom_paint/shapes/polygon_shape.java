@@ -29,13 +29,14 @@ public class polygon_shape extends shape {
         x_points = new double[sides_count];
         y_points = new double[sides_count];
         for (int i = 0; i < sides_count; i++) {
-            x_points[i] = R * Math.cos(2 * Math.PI * i / sides_count);
-            y_points[i] = R * Math.sin(2 * Math.PI * i / sides_count);
+            x_points[i] = start_point.getX() +  R * Math.cos(2 * Math.PI * i / sides_count);
+            y_points[i] = start_point.getY() + R * Math.sin(2 * Math.PI * i / sides_count);
         }
     }
 
     @Override
     public void draw(GraphicsContext gc) {
+        super.draw(gc);
         calculate_coordinates();
         gc.fillPolygon(x_points, y_points, sides_count);
         gc.strokePolygon(x_points, y_points, sides_count);

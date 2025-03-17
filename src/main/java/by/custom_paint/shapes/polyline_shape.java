@@ -34,6 +34,7 @@ public class polyline_shape extends shape {
 
     @Override
     public void draw(GraphicsContext gc) {
+        super.draw(gc);
         get_points_count();
         get_points_coordinates();
         gc.strokePolyline(x_points, y_points, points_count);
