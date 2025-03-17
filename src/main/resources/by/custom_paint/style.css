@@ -9,4 +9,27 @@
 .button {
     -fx-border-radius: 5px;
     -fx-border-color: grey;
+    -fx-background-repeat: no-repeat;
+    -fx-background-size: 80%;
+    -fx-background-position: center;
+}
+
+#line_button {
+    -fx-background-image: url("icons/line_icon.png");
+}
+
+#rectangle_button {
+    -fx-background-image: url("icons/rectangle_icon.png");
+}
+
+#ellipse_button {
+    -fx-background-image: url("icons/ellipse_icon.png");
+}
+
+#polygon_button {
+    -fx-background-image: url("icons/polygon_icon.png");
+}
+
+#polyline_button {
+    -fx-background-image: url("icons/polyline_icon.png");
 }

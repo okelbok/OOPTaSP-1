@@ -29,7 +29,7 @@
                <Insets left="10.0" right="10.0" />
             </HBox.margin>
          </Button>
-         <Button id="polygon_shape" layoutX="360.0" layoutY="10.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="50.0" styleClass="button" stylesheets="@style.css">
+         <Button id="polygon_button" layoutX="360.0" layoutY="10.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="50.0" styleClass="button" stylesheets="@style.css">
             <HBox.margin>
                <Insets left="10.0" right="10.0" />
             </HBox.margin>

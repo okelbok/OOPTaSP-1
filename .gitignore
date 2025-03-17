@@ -31,3 +31,4 @@ target/
 
 ### IntelliJ IDEA ###
 .idea/
+.idea/.gitignore
