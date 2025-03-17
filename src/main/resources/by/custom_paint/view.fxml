@@ -5,36 +5,36 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane id="main_pane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="700.0" scaleShape="false" styleClass="anchor_pane" stylesheets="@style.css" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="by.custom_paint.controls.main_control">
+<AnchorPane id="main_pane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="700.0" scaleShape="false" styleClass="anchor_pane" stylesheets="@style.css" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="by.custom_paint.controllers.mainController">
    <VBox id="controls_vbox" alignment="CENTER" prefHeight="500.0" prefWidth="50.0" styleClass="vbox" stylesheets="@style.css" />
    <Pane id="canvas_pane" layoutX="50.0" layoutY="50.0" prefHeight="415.0" prefWidth="628.0" styleClass="pane" stylesheets="@style.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="51.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="50.0">
       <children>
          <Canvas id="main_canvas" fx:id="canvas" height="450.0" styleClass="canvas" width="649.0" />
       </children>
    </Pane>
-   <HBox id="shapes_hbox" alignment="TOP_CENTER" layoutX="50.0" layoutY="-1.0" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#line_button_clicked" prefHeight="50.0" prefWidth="650.0" styleClass="hbox" stylesheets="@style.css" AnchorPane.leftAnchor="50.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+   <HBox id="shapes_hbox" alignment="TOP_CENTER" layoutX="50.0" layoutY="-1.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="50.0" prefWidth="650.0" styleClass="hbox" stylesheets="@style.css" AnchorPane.leftAnchor="50.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
       <children>
-         <Button id="line_button" fx:id="line_button" mnemonicParsing="false" onMouseClicked="#line_button_clicked" prefHeight="50.0" prefWidth="50.0" stylesheets="@style.css">
+         <Button id="line_button" fx:id="lineButton" mnemonicParsing="false" onMouseClicked="#lineButtonClicked" prefHeight="50.0" prefWidth="50.0" stylesheets="@style.css">
             <HBox.margin>
                <Insets left="10.0" right="10.0" />
             </HBox.margin>
          </Button>
-         <Button id="rectangle_button" fx:id="rectangle_button" layoutX="310.0" layoutY="10.0" mnemonicParsing="false" onMouseClicked="#rectangle_button_clicked" prefHeight="50.0" prefWidth="50.0" styleClass="button" stylesheets="@style.css">
+         <Button id="rectangle_button" fx:id="rectangleButton" layoutX="310.0" layoutY="10.0" mnemonicParsing="false" onMouseClicked="#rectangleButtonClicked" prefHeight="50.0" prefWidth="50.0" styleClass="button" stylesheets="@style.css">
             <HBox.margin>
                <Insets left="10.0" right="10.0" />
             </HBox.margin>
          </Button>
-         <Button id="ellipse_button" fx:id="ellipse_button" layoutX="284.0" layoutY="10.0" mnemonicParsing="false" onMouseClicked="#ellipse_button_clicked" prefHeight="50.0" prefWidth="50.0" styleClass="button" stylesheets="@style.css">
+         <Button id="ellipse_button" fx:id="ellipseButton" layoutX="284.0" layoutY="10.0" mnemonicParsing="false" onMouseClicked="#ellipseButtonClicked" prefHeight="50.0" prefWidth="50.0" styleClass="button" stylesheets="@style.css">
             <HBox.margin>
                <Insets left="10.0" right="10.0" />
             </HBox.margin>
          </Button>
-         <Button id="polygon_button" fx:id="polygon_button" layoutX="360.0" layoutY="10.0" mnemonicParsing="false" onMouseClicked="#polygon_button_clicked" prefHeight="50.0" prefWidth="50.0" styleClass="button" stylesheets="@style.css">
+         <Button id="polygon_button" fx:id="polygonButton" layoutX="360.0" layoutY="10.0" mnemonicParsing="false" onMouseClicked="#polygonButtonClicked" prefHeight="50.0" prefWidth="50.0" styleClass="button" stylesheets="@style.css">
             <HBox.margin>
                <Insets left="10.0" right="10.0" />
             </HBox.margin>
          </Button>
-         <Button id="polyline_button" fx:id="polyline_button" layoutX="385.0" layoutY="10.0" mnemonicParsing="false" onMouseClicked="#polyline_button_clicked" prefHeight="50.0" prefWidth="50.0" styleClass="button" stylesheets="@style.css">
+         <Button id="polyline_button" fx:id="polylineButton" layoutX="385.0" layoutY="10.0" mnemonicParsing="false" onMouseClicked="#polylineButtonClicked" prefHeight="50.0" prefWidth="50.0" styleClass="button" stylesheets="@style.css">
             <HBox.margin>
                <Insets left="10.0" right="10.0" />
             </HBox.margin>

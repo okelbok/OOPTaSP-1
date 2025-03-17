@@ -11,6 +11,6 @@ module by.custom_paint {
     requires eu.hansolo.tilesfx;
 
     opens by.custom_paint to javafx.fxml;
-    opens by.custom_paint.controls to javafx.fxml;
+    opens by.custom_paint.controllers to javafx.fxml;
     exports by.custom_paint;
 }

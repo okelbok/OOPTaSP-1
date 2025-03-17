@@ -5,45 +5,49 @@ import javafx.scene.paint.Color;
 import javafx.scene.canvas.GraphicsContext;
 
 public abstract class shape {
-    protected Point2D start_point;
-    protected Color fill_color, border_color;
-    protected double border_width;
+    protected Point2D startPoint;
+    protected Color fillColor, borderColor;
+    protected double borderWidth;
 
-    public void set_start_point(double x, double y) {
-        start_point = new Point2D(x, y);
+    public Point2D setStartPoint(double x, double y) {
+        startPoint = new Point2D(x, y);
+        return startPoint;
     }
 
-    public Point2D get_start_point() {
-        return start_point;
+    public Point2D getStartPoint() {
+        return startPoint;
     }
 
-    public void set_fill_color(Color fill_color) {
-        this.fill_color = fill_color;
+    public Color setFillColor(Color fillColor) {
+        this.fillColor = fillColor;
+        return this.fillColor;
     }
 
-    public Color get_fill_color() {
-        return fill_color;
+    public Color getFillColor() {
+        return fillColor;
     }
 
-    public void set_border_color(Color border_color) {
-        this.border_color = border_color;
+    public Color setBorderColor(Color borderColor) {
+        this.borderColor = borderColor;
+        return this.borderColor;
     }
 
-    public Color get_border_color() {
-        return border_color;
+    public Color getBorderColor() {
+        return borderColor;
     }
 
-    public void set_border_width(double border_width) {
-        this.border_width = border_width;
+    public double setBorderWidth(double borderWidth) {
+        this.borderWidth = borderWidth;
+        return this.borderWidth;
     }
 
-    public double get_border_width() {
-        return border_width;
+    public double getBorderWidth() {
+        return borderWidth;
     }
 
     public void draw(GraphicsContext gc) {
-        gc.setStroke(border_color);
-        gc.setLineWidth(border_width);
-        gc.setFill(fill_color);
+        gc.setStroke(borderColor);
+        gc.setLineWidth(borderWidth);
+        gc.setFill(fillColor);
     };
 }
