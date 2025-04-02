@@ -10,7 +10,7 @@
     -fx-border-radius: 5px;
     -fx-border-color: grey;
     -fx-background-repeat: no-repeat;
-    -fx-background-size: 80%;
+    -fx-background-size: 60%;
     -fx-background-position: center;
 }
 
@@ -32,4 +32,37 @@
 
 #polyline_button {
     -fx-background-image: url("icons/polyline_icon.png");
+}
+
+#menu {
+    -fx-background-image: url("icons/options_icon.png");
+    -fx-background-repeat: no-repeat;
+    -fx-background-size: 50%;
+    -fx-background-position: center;
+}
+
+.menu-item {
+    -fx-background-repeat: no-repeat;
+    -fx-background-size: 10%;
+    -fx-background-position: left;
+}
+
+#undo_menu_item {
+    -fx-background-image: url("icons/undo_icon.png");
+}
+
+#redo_menu_item {
+    -fx-background-image: url("icons/redo_icon.png");
+}
+
+#load_menu_item {
+    -fx-background-image: url("icons/load_icon.png");
+}
+
+#save_menu_item {
+    -fx-background-image: url("icons/save_icon.png");
+}
+
+#plugin_menu_item {
+    -fx-background-image: url("icons/plugin_icon.png");
 }

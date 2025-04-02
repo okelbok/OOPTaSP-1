@@ -9,18 +9,41 @@ import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Button;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
 
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.Random;
-import java.util.ResourceBundle;
+import java.util.*;
 
 public class mainController implements Initializable {
+    @FXML
+    AnchorPane parentPane;
     @FXML
     Button lineButton, rectangleButton, ellipseButton, polygonButton, polylineButton;
     @FXML
     Canvas canvas;
+
+    private final Random rand = new Random();
+    private Point2D randomPoint;
+    private GraphicsContext gc;
+
+    private void getRandomPoint() {
+        randomPoint = new Point2D(rand.nextDouble(0, canvas.getWidth()), rand.nextDouble(0, canvas.getHeight()));
+    }
+
+    private Color getRandomColor() {
+        return Color.rgb(rand.nextInt(256), rand.nextInt(256), rand.nextInt(256));
+    }
+
+    private void click(shape newShape) {
+        gc.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
+        getRandomPoint();
+        newShape.setStartPoint(randomPoint.getX(), randomPoint.getY());
+        newShape.setFillColor(getRandomColor());
+        newShape.setBorderColor(getRandomColor());
+        newShape.setBorderWidth(1 + rand.nextDouble() * 10);
+        newShape.draw(gc);
+    }
 
     @FXML
     public void lineButtonClicked(MouseEvent event) {
@@ -68,30 +91,8 @@ public class mainController implements Initializable {
         click(polyline);
     }
 
-    private final Random rand = new Random();
-    private Point2D randomPoint;
-    private GraphicsContext gc;
-
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         gc = canvas.getGraphicsContext2D();
-    }
-
-    private void getRandomPoint() {
-        randomPoint = new Point2D(rand.nextDouble(0, canvas.getWidth()), rand.nextDouble(0, canvas.getHeight()));
-    }
-
-    private Color getRandomColor() {
-        return Color.rgb(rand.nextInt(256), rand.nextInt(256), rand.nextInt(256));
-    }
-
-    private void click(shape newShape) {
-        gc.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
-        getRandomPoint();
-        newShape.setStartPoint(randomPoint.getX(), randomPoint.getY());
-        newShape.setFillColor(getRandomColor());
-        newShape.setBorderColor(getRandomColor());
-        newShape.setBorderWidth(1 + rand.nextDouble() * 10);
-        newShape.draw(gc);
     }
 }

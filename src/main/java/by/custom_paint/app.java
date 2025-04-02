@@ -7,16 +7,22 @@ import javafx.scene.image.Image;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.Objects;
 
 public class app extends Application {
     @Override
     public void start(Stage stage) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(app.class.getResource("view.fxml"));
+        // TODO: load icons in run-time
+        InputStream iconStream = getClass().getResourceAsStream("/by/custom_paint/icons/main_icon.png");
+        Image mainIcon = new Image(Objects.requireNonNull(iconStream));
         Scene scene = new Scene(fxmlLoader.load());
-        stage.getIcons().add(new Image(Objects.requireNonNull(app.class.getResourceAsStream("/by/custom_paint/icons/main_icon.png"))));
+
+        stage.getIcons().add(mainIcon);
         stage.setTitle("Custom Paint");
         stage.setScene(scene);
+
         stage.show();
     }
 
