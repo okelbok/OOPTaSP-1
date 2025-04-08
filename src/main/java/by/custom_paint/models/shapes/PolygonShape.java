@@ -2,7 +2,7 @@ package by.custom_paint.models.shapes;
 
 import javafx.scene.canvas.GraphicsContext;
 
-public class polygonShape extends shape {
+public class PolygonShape extends Shape {
     protected int sidesCount;
     protected double sideLength;
     private double[] xPoints;

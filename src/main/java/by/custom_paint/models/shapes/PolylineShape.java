@@ -5,7 +5,7 @@ import javafx.scene.canvas.GraphicsContext;
 
 import java.util.ArrayList;
 
-public class polylineShape extends shape {
+public class PolylineShape extends Shape {
     protected ArrayList<Point2D> points;
     private double[] xPoints;
     private double[] yPoints;

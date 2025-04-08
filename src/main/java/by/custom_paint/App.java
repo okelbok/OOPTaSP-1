@@ -10,11 +10,10 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.Objects;
 
-public class app extends Application {
+public class App extends Application {
     @Override
     public void start(Stage stage) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(app.class.getResource("views/view.fxml"));
-        // TODO: load icons in run-time
+        FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource("views/view.fxml"));
         InputStream iconStream = getClass().getResourceAsStream("/images/main_icon.png");
         Image mainIcon = new Image(Objects.requireNonNull(iconStream));
         Scene scene = new Scene(fxmlLoader.load());

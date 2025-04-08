@@ -4,7 +4,7 @@ import javafx.geometry.*;
 import javafx.scene.paint.Color;
 import javafx.scene.canvas.GraphicsContext;
 
-public abstract class shape {
+public abstract class Shape {
     protected Point2D startPoint;
     protected Color fillColor, borderColor;
     protected double borderWidth;

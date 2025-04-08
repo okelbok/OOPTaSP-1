@@ -2,7 +2,7 @@ package by.custom_paint.models.shapes;
 
 import javafx.scene.canvas.GraphicsContext;
 
-public class ellipseShape extends shape {
+public class EllipseShape extends Shape {
     protected double width, height;
 
     public double setWidth(double width) {

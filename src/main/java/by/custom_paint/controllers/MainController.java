@@ -16,7 +16,7 @@ import javafx.scene.paint.Color;
 import java.net.URL;
 import java.util.*;
 
-public class mainController implements Initializable {
+public class MainController implements Initializable {
     @FXML
     private Canvas canvas;
     @FXML
@@ -37,7 +37,7 @@ public class mainController implements Initializable {
         return Color.rgb(rand.nextInt(256), rand.nextInt(256), rand.nextInt(256));
     }
 
-    private void click(shape newShape) {
+    private void click(Shape newShape) {
         gc.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
 
         getRandomPoint();
@@ -52,7 +52,7 @@ public class mainController implements Initializable {
 
     @FXML
     public void lineButtonClicked() {
-        lineShape line = new lineShape();
+        LineShape line = new LineShape();
 
         getRandomPoint();
         line.setEndPoint(randomPoint.getX(), randomPoint.getY());
@@ -62,7 +62,7 @@ public class mainController implements Initializable {
 
     @FXML
     public void rectangleButtonClicked() {
-        rectangleShape rectangle = new rectangleShape();
+        RectangleShape rectangle = new RectangleShape();
 
         getRandomPoint();
         rectangle.setEndPoint(randomPoint.getX(), randomPoint.getY());
@@ -72,7 +72,7 @@ public class mainController implements Initializable {
 
     @FXML
     public void ellipseButtonClicked() {
-        ellipseShape ellipse = new ellipseShape();
+        EllipseShape ellipse = new EllipseShape();
 
         getRandomPoint();
         ellipse.setWidth(randomPoint.getX());
@@ -83,7 +83,7 @@ public class mainController implements Initializable {
 
     @FXML
     public void polygonButtonClicked() {
-        polygonShape polygon = new polygonShape();
+        PolygonShape polygon = new PolygonShape();
 
         polygon.setSidesCount(rand.nextInt(3, 20));
         polygon.setSideLength(rand.nextDouble(polygon.getSidesCount(), canvas.getWidth() / polygon.getSidesCount()));
@@ -93,7 +93,7 @@ public class mainController implements Initializable {
 
     @FXML
     public void polylineButtonClicked() {
-        polylineShape polyline = new polylineShape();
+        PolylineShape polyline = new PolylineShape();
         int pointsCount = rand.nextInt(3, 20);
         ArrayList<Point2D> points = new ArrayList<>();
 

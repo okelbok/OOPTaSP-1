@@ -3,7 +3,7 @@ package by.custom_paint.models.shapes;
 import javafx.geometry.*;
 import javafx.scene.canvas.GraphicsContext;
 
-public class lineShape extends shape {
+public class LineShape extends Shape {
     private Point2D endPoint;
 
     public Point2D setEndPoint(double x, double y) {
