@@ -7,7 +7,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane id="main_pane" fx:id="parentPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="700.0" scaleShape="false" stylesheets="@style.css" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="by.custom_paint.controllers.mainController">
+<AnchorPane id="main_pane" fx:id="parentPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="700.0" scaleShape="false" stylesheets="@../../../styles/style.css" xmlns="http://javafx.com/javafx/11.0.14-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="by.custom_paint.controllers.mainController">
    <VBox id="controls_vbox" alignment="CENTER" prefHeight="500.0" prefWidth="50.0" spacing="5.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
       <children>
          <Label text="Fill Color" textAlignment="CENTER" textFill="WHITE" wrapText="true">
@@ -39,8 +39,8 @@
             <VBox.margin>
                <Insets left="3.0" right="5.0" top="10.0" />
             </VBox.margin></Label>
-         <Slider id="border_width_slider" blockIncrement="1.0" min="1.0" orientation="VERTICAL" value="1.0" />
-         <Label id="border_width_label" text="1" textFill="WHITE">
+         <Slider id="border_width_slider" fx:id="borderWidthSlider" min="1.0" orientation="VERTICAL" value="1.0" />
+         <Label id="border_width_label" fx:id="borderWidthLabel" text="1" textFill="WHITE">
             <font>
                <Font name="STXihei" size="14.0" />
             </font>

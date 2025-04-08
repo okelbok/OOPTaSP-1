@@ -1,4 +1,4 @@
-package by.custom_paint.shapes;
+package by.custom_paint.models.shapes;
 
 import javafx.geometry.*;
 import javafx.scene.paint.Color;

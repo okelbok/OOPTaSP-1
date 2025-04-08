@@ -1,10 +1,10 @@
-package by.custom_paint.shapes;
+package by.custom_paint.models.shapes;
 
 import javafx.geometry.*;
 import javafx.scene.canvas.GraphicsContext;
 
-public class rectangleShape extends shape {
-    protected Point2D endPoint;
+public class lineShape extends shape {
+    private Point2D endPoint;
 
     public Point2D setEndPoint(double x, double y) {
         endPoint = new Point2D(x, y);
@@ -18,7 +18,6 @@ public class rectangleShape extends shape {
     @Override
     public void draw(GraphicsContext gc) {
         super.draw(gc);
-        gc.fillRect(startPoint.getX(), startPoint.getY(), endPoint.getX(), endPoint.getY());
-        gc.strokeRect(startPoint.getX(), startPoint.getY(), endPoint.getX(), endPoint.getY());
+        gc.strokeLine(startPoint.getX(), startPoint.getY(), endPoint.getX(), endPoint.getY());
     }
 }

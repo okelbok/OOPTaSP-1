@@ -13,9 +13,9 @@ import java.util.Objects;
 public class app extends Application {
     @Override
     public void start(Stage stage) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(app.class.getResource("view.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(app.class.getResource("views/view.fxml"));
         // TODO: load icons in run-time
-        InputStream iconStream = getClass().getResourceAsStream("/by/custom_paint/icons/main_icon.png");
+        InputStream iconStream = getClass().getResourceAsStream("/images/main_icon.png");
         Image mainIcon = new Image(Objects.requireNonNull(iconStream));
         Scene scene = new Scene(fxmlLoader.load());
 

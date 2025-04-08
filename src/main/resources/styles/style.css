@@ -15,27 +15,27 @@
 }
 
 #line_button {
-    -fx-background-image: url("icons/line_icon.png");
+    -fx-background-image: url("../images/line_icon.png");
 }
 
 #rectangle_button {
-    -fx-background-image: url("icons/rectangle_icon.png");
+    -fx-background-image: url("../images/rectangle_icon.png");
 }
 
 #ellipse_button {
-    -fx-background-image: url("icons/ellipse_icon.png");
+    -fx-background-image: url("../images/ellipse_icon.png");
 }
 
 #polygon_button {
-    -fx-background-image: url("icons/polygon_icon.png");
+    -fx-background-image: url("../images/polygon_icon.png");
 }
 
 #polyline_button {
-    -fx-background-image: url("icons/polyline_icon.png");
+    -fx-background-image: url("../images/polyline_icon.png");
 }
 
 #menu {
-    -fx-background-image: url("icons/options_icon.png");
+    -fx-background-image: url("../images/options_icon.png");
     -fx-background-repeat: no-repeat;
     -fx-background-size: 50%;
     -fx-background-position: center;
@@ -48,21 +48,21 @@
 }
 
 #undo_menu_item {
-    -fx-background-image: url("icons/undo_icon.png");
+    -fx-background-image: url("../images/undo_icon.png");
 }
 
 #redo_menu_item {
-    -fx-background-image: url("icons/redo_icon.png");
+    -fx-background-image: url("../images/redo_icon.png");
 }
 
 #load_menu_item {
-    -fx-background-image: url("icons/load_icon.png");
+    -fx-background-image: url("../images/load_icon.png");
 }
 
 #save_menu_item {
-    -fx-background-image: url("icons/save_icon.png");
+    -fx-background-image: url("../images/save_icon.png");
 }
 
 #plugin_menu_item {
-    -fx-background-image: url("icons/plugin_icon.png");
+    -fx-background-image: url("../images/plugin_icon.png");
 }
