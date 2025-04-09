@@ -17,7 +17,7 @@
             <VBox.margin>
                <Insets left="3.0" right="5.0" top="60.0" />
             </VBox.margin></Label>
-         <ColorPicker id="fill_color_picker">
+         <ColorPicker id="fill_color_picker" fx:id="fillColorPicker">
             <VBox.margin>
                <Insets left="5.0" right="5.0" />
             </VBox.margin></ColorPicker>
@@ -28,7 +28,7 @@
             <VBox.margin>
                <Insets left="3.0" right="5.0" top="10.0" />
             </VBox.margin></Label>
-         <ColorPicker id="border_color_picker">
+         <ColorPicker id="border_color_picker" fx:id="borderColorPicker">
             <VBox.margin>
                <Insets left="5.0" right="5.0" />
             </VBox.margin></ColorPicker>

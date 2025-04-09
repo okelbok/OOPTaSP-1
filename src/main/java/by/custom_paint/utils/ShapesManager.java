@@ -4,7 +4,7 @@ import by.custom_paint.models.lists.ShapesList;
 import by.custom_paint.models.shapes.*;
 
 abstract class ShapesManager {
-    private ShapesList shapesList;
+    private ShapesList shapes;
 
     abstract public ShapesList getShapes();
 
@@ -14,7 +14,7 @@ abstract class ShapesManager {
 
     abstract public void updateShape(Shape shape);
 
-    abstract public void addShapes(ShapesList shapesList);
+    abstract public void addShapes(ShapesList shapes);
 
-    abstract public void removeShapes(ShapesList shapesList);
+    abstract public void removeShapes(ShapesList shapes);
 }

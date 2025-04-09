@@ -9,9 +9,9 @@ import javafx.fxml.Initializable;
 import javafx.geometry.Point2D;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.control.ColorPicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.Slider;
-import javafx.scene.paint.Color;
 
 import java.net.URL;
 import java.util.*;
@@ -20,6 +20,8 @@ public class MainController implements Initializable {
     @FXML
     private Canvas canvas;
     @FXML
+    private ColorPicker fillColorPicker, borderColorPicker;
+    @FXML
     private Slider borderWidthSlider;
     @FXML
     private Label borderWidthLabel;
@@ -27,14 +29,10 @@ public class MainController implements Initializable {
     private final Random rand = new Random();
     private Point2D randomPoint;
     private GraphicsContext gc;
-    private int borderWidth;
+    private int borderWidth = 1;
 
     private void getRandomPoint() {
         randomPoint = new Point2D(rand.nextDouble(0, canvas.getWidth()), rand.nextDouble(0, canvas.getHeight()));
-    }
-
-    private Color getRandomColor() {
-        return Color.rgb(rand.nextInt(256), rand.nextInt(256), rand.nextInt(256));
     }
 
     private void click(Shape newShape) {
@@ -43,9 +41,9 @@ public class MainController implements Initializable {
         getRandomPoint();
         newShape.setStartPoint(randomPoint.getX(), randomPoint.getY());
 
-        newShape.setFillColor(getRandomColor());
-        newShape.setBorderColor(getRandomColor());
-        newShape.setBorderWidth(1 + rand.nextDouble() * 10);
+        newShape.setFillColor(fillColorPicker.getValue());
+        newShape.setBorderColor(borderColorPicker.getValue());
+        newShape.setBorderWidth(borderWidth);
 
         newShape.draw(gc);
     }
