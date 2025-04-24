@@ -11,18 +11,27 @@ import java.io.InputStream;
 import java.util.Objects;
 
 public class App extends Application {
+    public static Image getMainIcon() {
+        InputStream iconStream = App.class.getResourceAsStream("/images/main_icon.png");
+
+        return new Image(Objects.requireNonNull(iconStream));
+    }
+
     @Override
     public void start(Stage stage) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource("views/view.fxml"));
-        InputStream iconStream = getClass().getResourceAsStream("/images/main_icon.png");
-        Image mainIcon = new Image(Objects.requireNonNull(iconStream));
-        Scene scene = new Scene(fxmlLoader.load());
+        FXMLLoader loader = new FXMLLoader(App.class.getResource("views/main_view.fxml"));
+        String css = Objects.requireNonNull(getClass().getResource("/styles/style.css")).toExternalForm();
 
-        stage.getIcons().add(mainIcon);
+        Scene scene = new Scene(loader.load());
+        scene.getStylesheets().add(css);
+
+        stage.getIcons().add(getMainIcon());
         stage.setTitle("Custom Paint");
         stage.setScene(scene);
 
         stage.show();
+        stage.setMinWidth(stage.getWidth());
+        stage.setMinHeight(stage.getHeight());
     }
 
     public static void main(String[] args) {

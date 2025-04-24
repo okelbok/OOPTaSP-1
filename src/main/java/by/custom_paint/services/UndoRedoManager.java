@@ -1,4 +1,4 @@
-package by.custom_paint.utils;
+package by.custom_paint.services;
 
 import by.custom_paint.models.lists.ActionsList;
 

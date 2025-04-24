@@ -1,6 +1,7 @@
 package by.custom_paint.models.shapes;
 
-import javafx.geometry.*;
+import javafx.geometry.Point2D;
+
 import javafx.scene.paint.Color;
 import javafx.scene.canvas.GraphicsContext;
 

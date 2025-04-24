@@ -7,6 +7,7 @@ public class EllipseShape extends Shape {
 
     public double setWidth(double width) {
         this.width = width;
+
         return this.width;
     }
 
@@ -26,6 +27,7 @@ public class EllipseShape extends Shape {
     @Override
     public void draw(GraphicsContext gc) {
         super.draw(gc);
+
         gc.fillOval(startPoint.getX(), startPoint.getY(), width, height);
         gc.strokeOval(startPoint.getX(), startPoint.getY(), width, height);
     }

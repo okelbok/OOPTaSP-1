@@ -1,6 +1,7 @@
 package by.custom_paint.models.shapes;
 
-import javafx.geometry.*;
+import javafx.geometry.Point2D;
+
 import javafx.scene.canvas.GraphicsContext;
 
 public class RectangleShape extends Shape {
@@ -18,6 +19,7 @@ public class RectangleShape extends Shape {
     @Override
     public void draw(GraphicsContext gc) {
         super.draw(gc);
+
         gc.fillRect(startPoint.getX(), startPoint.getY(), endPoint.getX(), endPoint.getY());
         gc.strokeRect(startPoint.getX(), startPoint.getY(), endPoint.getX(), endPoint.getY());
     }

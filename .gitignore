@@ -29,6 +29,8 @@ target/
 !**/src/main/**/target/
 !**/src/test/**/target/
 
+# build utils
+*.MF
+
 ### IntelliJ IDEA ###
-.idea/
-.idea/.gitignore
+*.idea/*
