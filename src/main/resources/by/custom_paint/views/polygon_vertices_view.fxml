@@ -4,13 +4,13 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="112.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/11.0.14-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="by.custom_paint.controllers.PolygonSidesController">
-   <Spinner fx:id="sidesCountSpinner" layoutX="93.0" layoutY="34.0" prefHeight="26.0" prefWidth="214.0">
+<AnchorPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="112.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/11.0.14-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="by.custom_paint.controllers.PolygonVerticesController">
+   <Spinner fx:id="verticesCountSpinner" layoutX="93.0" layoutY="34.0" prefHeight="26.0" prefWidth="214.0">
       <valueFactory>
          <SpinnerValueFactory.IntegerSpinnerValueFactory max="20" min="3" />
       </valueFactory>
    </Spinner>
-   <Label layoutX="93.0" layoutY="14.0" prefHeight="20.0" prefWidth="214.0" text="Choose polygon's sides count:" wrapText="true">
+   <Label layoutX="93.0" layoutY="14.0" prefHeight="20.0" prefWidth="214.0" text="Choose polygon's vertexes count:" wrapText="true">
       <font>
          <Font size="14.0" />
       </font>

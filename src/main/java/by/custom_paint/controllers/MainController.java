@@ -1,7 +1,6 @@
 package by.custom_paint.controllers;
 
-import by.custom_paint.models.shapes.*;
-import by.custom_paint.services.ShapesManager;
+import by.custom_paint.managers.ShapesManager;
 
 import java.util.*;
 import java.io.IOException;
@@ -40,83 +39,41 @@ public class MainController implements Initializable {
     private GraphicsContext gc;
     private int borderWidth = 1;
 
-    private static PolygonSidesController polygonSidesController;
+    private static PolygonVerticesController polygonVerticesController;
     private final ShapesManager shapesManager = ShapesManager.getInstance();
 
-    private void getRandomPoint() {
-        randomPoint = new Point2D(rand.nextDouble(0, canvas.getWidth()), rand.nextDouble(0, canvas.getHeight()));
+    private void preview(double startX, double startY, double endX, double endY) {
+
     }
 
-    private void draw(Shape shape) {
-        gc.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
+    private void draw(double startX, double startY, double endX, double endY) {
 
-        getRandomPoint();
-        shape.setStartPoint(randomPoint.getX(), randomPoint.getY());
-
-        shape.setFillColor(fillColorPicker.getValue());
-        shape.setBorderColor(borderColorPicker.getValue());
-        shape.setBorderWidth(borderWidth);
-
-        shapesManager.addShape(shape);
-        shape.draw(gc);
     }
+
 
     @FXML
     private void lineButtonClicked() {
-        LineShape line = new LineShape();
 
-        getRandomPoint();
-        line.setEndPoint(randomPoint.getX(), randomPoint.getY());
-
-        draw(line);
     }
 
     @FXML
     private void rectangleButtonClicked() {
-        RectangleShape rectangle = new RectangleShape();
 
-        getRandomPoint();
-        rectangle.setEndPoint(randomPoint.getX(), randomPoint.getY());
-
-        draw(rectangle);
     }
 
     @FXML
     private void ellipseButtonClicked() {
-        EllipseShape ellipse = new EllipseShape();
 
-        getRandomPoint();
-        ellipse.setWidth(randomPoint.getX());
-        ellipse.setHeight(randomPoint.getY());
-
-        draw(ellipse);
     }
 
     @FXML
     private void polygonButtonClicked() {
-        polygonSidesController.showModal();
 
-        PolygonShape polygon = new PolygonShape();
-
-        polygon.setSidesCount(polygonSidesController.getSidesCount());
-        polygon.setSideLength(rand.nextDouble(polygon.getSidesCount(), canvas.getWidth() / polygon.getSidesCount()));
-
-        draw(polygon);
     }
 
     @FXML
     private void polylineButtonClicked() {
-        PolylineShape polyline = new PolylineShape();
-        int pointsCount = rand.nextInt(3, 20);
-        ArrayList<Point2D> points = new ArrayList<>();
 
-        for (int i = 0; i < pointsCount; i++) {
-            getRandomPoint();
-            points.add(randomPoint);
-        }
-        polyline.setPoints(points);
-
-        draw(polyline);
     }
 
     private void setEventListeners() {
@@ -139,21 +96,21 @@ public class MainController implements Initializable {
     }
 
     private void getPolygonModal() {
-        FXMLLoader loader = PolygonSidesController.getPolygonSidesLoader();
+        FXMLLoader loader = PolygonVerticesController.getPolygonVerticesLoader();
 
         try {
             loader.load();
         }
         catch (IOException e) {
             showError(
-                    "Resources for polygon angles count window are missing or misplaced.", ""
+                    "Resources for polygon vertexes count window are missing or misplaced.", ""
             );
             loader = null;
         }
 
         if (loader != null) {
-            polygonSidesController = PolygonSidesController.getPolygonSidesLoader().getController();
-            polygonSidesController.setPolygonSidesScene();
+            polygonVerticesController = PolygonVerticesController.getPolygonVerticesLoader().getController();
+            polygonVerticesController.setPolygonVerticesScene();
         }
     }
 

@@ -3,21 +3,22 @@ package by.custom_paint.models.shapes;
 import javafx.scene.canvas.GraphicsContext;
 
 public class EllipseShape extends Shape {
-    protected double width, height;
+    private double width, height;
 
-    public double setWidth(double width) {
-        this.width = width;
+    private double setWidth() {
+        width = Math.abs(getEndPoint().getX() - getStartPoint().getX());
 
-        return this.width;
+        return width;
+    }
+
+    private double setHeight() {
+        height = Math.abs(getEndPoint().getY() - getStartPoint().getY());
+
+        return height;
     }
 
     public double getWidth() {
         return width;
-    }
-
-    public double setHeight(double height) {
-        this.height = height;
-        return this.height;
     }
 
     public double getHeight() {
@@ -28,7 +29,11 @@ public class EllipseShape extends Shape {
     public void draw(GraphicsContext gc) {
         super.draw(gc);
 
-        gc.fillOval(startPoint.getX(), startPoint.getY(), width, height);
-        gc.strokeOval(startPoint.getX(), startPoint.getY(), width, height);
+        gc.fillOval(
+                getStartPoint().getX(), getStartPoint().getY(),
+                setWidth(), setHeight());
+        gc.strokeOval(
+                getStartPoint().getX(), getStartPoint().getY(),
+                getWidth(), getHeight());
     }
 }

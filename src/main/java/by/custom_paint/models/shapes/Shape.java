@@ -6,12 +6,13 @@ import javafx.scene.paint.Color;
 import javafx.scene.canvas.GraphicsContext;
 
 public abstract class Shape {
-    protected Point2D startPoint;
-    protected Color fillColor, borderColor;
-    protected double borderWidth;
+    private Point2D startPoint, endPoint;
+    private Color fillColor, borderColor;
+    private double borderWidth;
 
     public Point2D setStartPoint(double x, double y) {
         startPoint = new Point2D(x, y);
+
         return startPoint;
     }
 
@@ -19,8 +20,19 @@ public abstract class Shape {
         return startPoint;
     }
 
+    public Point2D setEndPoint(double x, double y) {
+        endPoint = new Point2D(x, y);
+
+        return endPoint;
+    }
+
+    public Point2D getEndPoint() {
+        return endPoint;
+    }
+
     public Color setFillColor(Color fillColor) {
         this.fillColor = fillColor;
+
         return this.fillColor;
     }
 
@@ -30,6 +42,7 @@ public abstract class Shape {
 
     public Color setBorderColor(Color borderColor) {
         this.borderColor = borderColor;
+
         return this.borderColor;
     }
 
@@ -39,6 +52,7 @@ public abstract class Shape {
 
     public double setBorderWidth(double borderWidth) {
         this.borderWidth = borderWidth;
+
         return this.borderWidth;
     }
 
@@ -47,8 +61,8 @@ public abstract class Shape {
     }
 
     public void draw(GraphicsContext gc) {
-        gc.setStroke(borderColor);
-        gc.setLineWidth(borderWidth);
-        gc.setFill(fillColor);
+        gc.setStroke(getBorderColor());
+        gc.setLineWidth(getBorderWidth());
+        gc.setFill(getFillColor());
     };
 }
