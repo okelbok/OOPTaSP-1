@@ -17,6 +17,8 @@ import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.layout.AnchorPane;
 
+import javafx.event.ActionEvent;
+
 import javafx.beans.value.ObservableValue;
 import javafx.beans.value.ChangeListener;
 
@@ -34,8 +36,6 @@ public class MainController implements Initializable {
     @FXML
     private AnchorPane canvasAnchorPane;
 
-    private final Random rand = new Random();
-    private Point2D randomPoint;
     private GraphicsContext gc;
     private int borderWidth = 1;
 
@@ -50,30 +50,10 @@ public class MainController implements Initializable {
 
     }
 
-
     @FXML
-    private void lineButtonClicked() {
-
-    }
-
-    @FXML
-    private void rectangleButtonClicked() {
-
-    }
-
-    @FXML
-    private void ellipseButtonClicked() {
-
-    }
-
-    @FXML
-    private void polygonButtonClicked() {
-
-    }
-
-    @FXML
-    private void polylineButtonClicked() {
-
+    private void click(ActionEvent event) {
+        Button temp = (Button) event.getSource();
+        System.err.println(temp.getText());
     }
 
     private void setEventListeners() {

@@ -1,6 +1,8 @@
 package by.custom_paint.models.lists;
 
-public interface List<T> {
+import java.util.Iterator;
+
+public interface List<T> extends Iterator<T> {
     void add(T item);
 
     void remove(T item);

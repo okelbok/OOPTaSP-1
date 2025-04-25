@@ -8,15 +8,14 @@ import java.util.HashMap;
 
 public class ShapesManager {
     private final ShapesList shapes;
-
-    private static final Map<ShapeType, Shape> shapesFactory = new HashMap<ShapeType, Shape>()
+    private static final Map<String, Shape> shapesFactory = new HashMap<>()
     {
         {
-            put(ShapeType.LINE, new LineShape());
-            put(ShapeType.RECTANGLE, new RectangleShape());
-            put(ShapeType.ELLIPSE, new EllipseShape());
-            put(ShapeType.POLYGON, new PolygonShape());
-            put(ShapeType.POLYLINE, new PolylineShape());
+            put("Line", new LineShape());
+            put("Rectangle", new RectangleShape());
+            put("Ellipse", new EllipseShape());
+            put("Polygon", new PolygonShape());
+            put("Polyline", new PolylineShape());
         }
     };
     private static ShapesManager instance;
@@ -37,23 +36,19 @@ public class ShapesManager {
         return this.shapes;
     }
 
-    public Shape createShape(ShapeType shapeType) {
-        return shapesFactory.get(shapeType);
+    public Shape createShape(String name) {
+        return shapesFactory.get(name);
     }
 
     public void removeShape(Shape shape) {
-
-    }
-
-    public void updateShape(Shape shape) {
-
+        shapes.remove(shape);
     }
 
     public void addShapes(ShapesList shapes) {
-
+        this.shapes.addAll(shapes);
     }
 
     public void removeShapes(ShapesList shapes) {
-
+        this.shapes.removeAll(shapes);
     }
 }
