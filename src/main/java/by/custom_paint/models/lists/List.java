@@ -9,9 +9,5 @@ public interface List<T> extends Iterator<T> {
 
     void addAll(List<T> items);
 
-    void removeAll(List<T> items);
-
     boolean isEmpty();
-
-    boolean contains(T item);
 }

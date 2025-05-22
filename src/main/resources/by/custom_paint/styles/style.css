@@ -6,6 +6,10 @@
     -fx-background-color: gray;
 }
 
+#canvas_pane {
+    -fx-background-color: white;
+}
+
 .button {
     -fx-border-radius: 5px;
     -fx-border-color: grey;

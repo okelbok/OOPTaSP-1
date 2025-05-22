@@ -4,12 +4,14 @@ import javafx.scene.canvas.GraphicsContext;
 
 public class LineShape extends Shape {
     @Override
-    public void draw(GraphicsContext gc) {
-        super.draw(gc);
+    public void draw(GraphicsContext drawingArea) {
+        super.draw(drawingArea);
 
-        gc.strokeLine(
-                getStartPoint().getX(), getStartPoint().getY(),
-                getEndPoint().getX(), getEndPoint().getY()
-        );
+        if (getEndPoint() != null) {
+            drawingArea.strokeLine(
+                    getStartPoint().getX(), getStartPoint().getY(),
+                    getEndPoint().getX(), getEndPoint().getY()
+            );
+        }
     }
 }

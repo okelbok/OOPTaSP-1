@@ -1,9 +1,12 @@
 package by.custom_paint.controllers;
 
 import by.custom_paint.App;
+import by.custom_paint.common_utils.MessageBoxHandler;
 
 import java.util.ResourceBundle;
+
 import java.io.IOException;
+
 import java.net.URL;
 
 import javafx.fxml.FXML;
@@ -20,12 +23,13 @@ public class PolygonVerticesController implements Initializable {
     @FXML
     private Spinner<Integer> verticesCountSpinner;
 
-    private int verticesCount;
-    private final static int MIN_VERTICES_COUNT = 3;
+    private int verticesCount = MIN_VERTICES_COUNT;
 
-    private static final FXMLLoader polygonVerticesLoader = new FXMLLoader(App.class.getResource("views/polygon_vertices_view.fxml"));
     private Stage polygonVerticesDialog;
     private Scene polygonVerticesScene = null;
+
+    private static final int MIN_VERTICES_COUNT = 3;
+    private static final FXMLLoader VERTICES_LOADER = new FXMLLoader(App.class.getResource("views/polygon_vertices_view.fxml"));
 
     @FXML
     private void okButtonClicked() {
@@ -43,17 +47,28 @@ public class PolygonVerticesController implements Initializable {
         return this.verticesCount;
     }
 
-    public static FXMLLoader getPolygonVerticesLoader() {
-        return polygonVerticesLoader;
+    public static PolygonVerticesController getPolygonVerticesController() {
+        try {
+            VERTICES_LOADER.load();
+        }
+        catch (IOException e) {
+            MessageBoxHandler.showError(
+                    "Polygon vertices window error",
+                    "Resources for polygon vertices count window are missing or misplaced."
+            );
+            return null;
+        }
+
+        return VERTICES_LOADER.getController();
     }
 
     public Scene setPolygonVerticesScene() {
         if (polygonVerticesScene == null) {
             try {
-                polygonVerticesScene = new Scene(polygonVerticesLoader.load());
+                polygonVerticesScene = new Scene(VERTICES_LOADER.load());
             }
             catch (IOException e) {
-                polygonVerticesScene = new Scene(polygonVerticesLoader.getRoot());
+                polygonVerticesScene = new Scene(VERTICES_LOADER.getRoot());
             }
         }
 

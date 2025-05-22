@@ -7,7 +7,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane id="main_pane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="700.0" scaleShape="false" stylesheets="@../../../styles/style.css" xmlns="http://javafx.com/javafx/11.0.14-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="by.custom_paint.controllers.MainController">
+<AnchorPane id="main_pane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="700.0" scaleShape="false" stylesheets="@../styles/style.css" xmlns="http://javafx.com/javafx/11.0.14-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="by.custom_paint.controllers.MainController">
    <VBox id="controls_vbox" alignment="CENTER" prefHeight="500.0" prefWidth="50.0" spacing="5.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
       <Label text="Fill Color" textAlignment="CENTER" textFill="WHITE" wrapText="true">
          <font>
@@ -51,27 +51,27 @@
       </Label>
    </VBox>
    <HBox id="shapes_hbox" alignment="TOP_CENTER" layoutX="50.0" layoutY="-1.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="50.0" prefWidth="650.0" AnchorPane.leftAnchor="50.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-      <Button id="line_button" mnemonicParsing="false" onAction="#click" prefHeight="50.0" prefWidth="45.0">
+      <Button id="line_button" mnemonicParsing="false" onAction="#buttonClicked" prefHeight="50.0" prefWidth="45.0">
          <HBox.margin>
             <Insets bottom="5.0" left="10.0" right="10.0" top="5.0" />
          </HBox.margin>
       </Button>
-      <Button id="rectangle_button" layoutX="310.0" layoutY="10.0" mnemonicParsing="false" onAction="#click" prefHeight="50.0" prefWidth="45.0" styleClass="button">
+      <Button id="rectangle_button" layoutX="310.0" layoutY="10.0" mnemonicParsing="false" onAction="#buttonClicked" prefHeight="50.0" prefWidth="45.0" styleClass="button">
          <HBox.margin>
             <Insets bottom="5.0" left="10.0" right="10.0" top="5.0" />
          </HBox.margin>
       </Button>
-      <Button id="ellipse_button" layoutX="284.0" layoutY="10.0" mnemonicParsing="false" onAction="#click" prefHeight="50.0" prefWidth="45.0" styleClass="button">
+      <Button id="ellipse_button" layoutX="284.0" layoutY="10.0" mnemonicParsing="false" onAction="#buttonClicked" prefHeight="50.0" prefWidth="45.0" styleClass="button">
          <HBox.margin>
             <Insets bottom="5.0" left="10.0" right="10.0" top="5.0" />
          </HBox.margin>
       </Button>
-      <Button id="polygon_button" layoutX="360.0" layoutY="10.0" mnemonicParsing="false" onAction="#click" prefHeight="50.0" prefWidth="45.0" styleClass="button">
+      <Button id="polygon_button" layoutX="360.0" layoutY="10.0" mnemonicParsing="false" onAction="#buttonClicked" prefHeight="50.0" prefWidth="45.0" styleClass="button">
          <HBox.margin>
             <Insets bottom="5.0" left="10.0" right="10.0" top="5.0" />
          </HBox.margin>
       </Button>
-      <Button id="polyline_button" layoutX="385.0" layoutY="10.0" mnemonicParsing="false" onAction="#click" prefHeight="50.0" prefWidth="45.0" styleClass="button">
+      <Button id="polyline_button" layoutX="385.0" layoutY="10.0" mnemonicParsing="false" onAction="#buttonClicked" prefHeight="50.0" prefWidth="45.0" styleClass="button">
          <HBox.margin>
             <Insets bottom="5.0" left="10.0" right="10.0" top="5.0" />
          </HBox.margin>
@@ -109,9 +109,7 @@
          <Tooltip text="Empty Tooltip" />
       </tooltip>
    </MenuButton>
-   <ScrollPane fx:id="canvasScrollPane" hbarPolicy="ALWAYS" layoutX="50.0" layoutY="50.0" prefHeight="450.0" prefWidth="650.0" vbarPolicy="ALWAYS" AnchorPane.bottomAnchor="-0.39999999999997726" AnchorPane.leftAnchor="50.0" AnchorPane.rightAnchor="-0.39999999999997726" AnchorPane.topAnchor="50.0">
-      <AnchorPane fx:id="canvasAnchorPane" minHeight="-Infinity" minWidth="-Infinity" prefHeight="436.0" prefWidth="639.0">
-         <Canvas fx:id="canvas" height="450.0" width="650.0" AnchorPane.bottomAnchor="-14.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="-10.799999999999955" AnchorPane.topAnchor="0.0" />
-      </AnchorPane>
-   </ScrollPane>
+   <AnchorPane fx:id="canvasAnchorPane" layoutX="50.0" layoutY="50.0" prefHeight="450.0" prefWidth="650.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="50.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="50.0">
+      <Canvas fx:id="canvas" height="450.0" onMouseDragged="#mouseDragged" onMousePressed="#mousePressed" onMouseReleased="#mouseReleased" width="650.0" AnchorPane.bottomAnchor="-14.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="-10.799999999999955" AnchorPane.topAnchor="0.0" />
+   </AnchorPane>
 </AnchorPane>

@@ -2,13 +2,20 @@ package by.custom_paint.models.shapes;
 
 import java.util.ArrayList;
 import java.util.Map;
-import java.util.Optional;
 
 import javafx.geometry.Point2D;
 
 import javafx.scene.canvas.GraphicsContext;
 
 public class PolygonShape extends PolyShape {
+    @Override
+    public Point2D setEndPoint(double x, double y) {
+        Point2D endPoint = super.setEndPoint(x, y);
+        setVerticesCount(getVerticesCount());
+
+        return endPoint;
+    }
+
     private Point2D getCenterPoint(double width, double height) {
         double centerX = width / 2 + Math.min(getStartPoint().getX(), getEndPoint().getX());
         double centerY = height / 2 + Math.min(getStartPoint().getY(), getEndPoint().getY());
@@ -17,37 +24,43 @@ public class PolygonShape extends PolyShape {
     }
 
     @Override
-    public ArrayList<Point2D> setVertices(Optional<ArrayList<Point2D>> vertices) {
-        super.setVertices(vertices);
+    public int setVerticesCount(int verticesCount) {
+        super.setVerticesCount(verticesCount);
 
-        double width = Math.abs(getEndPoint().getX() - getStartPoint().getX());
-        double height = Math.abs(getEndPoint().getY() - getStartPoint().getY());
-        Point2D centerPoint = getCenterPoint(width, height);
-        double anglePitch = 2 * Math.PI / getVerticesCount();
+        if (getEndPoint() != null) {
+            ArrayList<Point2D> vertices = new ArrayList<>(getVerticesCount());
 
-        for (int i = 0; i < getVerticesCount(); i++) {
-            double angle = i * anglePitch;
-            double sideLength = Math.min(
-                    (width / 2) / Math.abs(Math.cos(angle)),
-                    (height / 2) / Math.abs(Math.sin(angle))
-            );
+            double width = Math.abs(getEndPoint().getX() - getStartPoint().getX());
+            double height = Math.abs(getEndPoint().getY() - getStartPoint().getY());
+            Point2D centerPoint = getCenterPoint(width, height);
+            double anglePitch = 2 * Math.PI / getVerticesCount();
 
-            this.vertices.add(new Point2D(
-                    centerPoint.getX() + sideLength * Math.cos(angle),
-                    centerPoint.getY() + sideLength * Math.sin(angle)
-            ));
+            for (int i = 0; i < getVerticesCount(); i++) {
+                double angle = i * anglePitch;
+                double sideLength = Math.min(
+                        (width / 2) / Math.abs(Math.cos(angle)),
+                        (height / 2) / Math.abs(Math.sin(angle))
+                );
+
+                vertices.add(new Point2D(
+                        centerPoint.getX() + sideLength * Math.cos(angle),
+                        centerPoint.getY() + sideLength * Math.sin(angle)
+                ));
+            }
+
+            setVertices(vertices);
         }
 
-        return this.vertices;
+        return getVerticesCount();
     }
 
     @Override
-    public void draw(GraphicsContext gc) {
-        super.draw(gc);
+    public void draw(GraphicsContext drawingArea) {
+        super.draw(drawingArea);
 
         Map<String, double[]> coordinates = getCoordinates();
 
-        gc.fillPolygon(coordinates.get("xCoordinates"), coordinates.get("yCoordinates"), getVerticesCount());
-        gc.strokePolygon(coordinates.get("xCoordinates"), coordinates.get("yCoordinates"), getVerticesCount());
+        drawingArea.fillPolygon(coordinates.get("xCoordinates"), coordinates.get("yCoordinates"), getVerticesCount());
+        drawingArea.strokePolygon(coordinates.get("xCoordinates"), coordinates.get("yCoordinates"), getVerticesCount());
     }
 }

@@ -21,17 +21,7 @@ public class ActionsList implements List<Action> {
     }
 
     @Override
-    public void removeAll(List<Action> items) {
-
-    }
-
-    @Override
     public boolean isEmpty() {
-        return false;
-    }
-
-    @Override
-    public boolean contains(Action item) {
         return false;
     }
 

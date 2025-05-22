@@ -2,24 +2,30 @@ package by.custom_paint.models.lists;
 
 import by.custom_paint.models.shapes.Shape;
 
-import java.util.LinkedList;
+import java.util.ArrayList;
 
 public class ShapesList implements List<Shape> {
-    private final LinkedList<Shape> shapes;
+    private final ArrayList<Shape> shapes;
     private Shape next = null;
 
     public ShapesList() {
-        shapes = new LinkedList<>();
+        shapes = new ArrayList<>();
+    }
+
+    public void resetIterator() {
+        next = (isEmpty()) ? null : shapes.getFirst();
     }
 
     @Override
     public void add(Shape item) {
         shapes.add(item);
+        next = shapes.getFirst();
     }
 
     @Override
     public void remove(Shape item) {
         shapes.remove(item);
+        next = shapes.getFirst();
     }
 
     @Override
@@ -27,13 +33,7 @@ public class ShapesList implements List<Shape> {
         while (items.hasNext()) {
             shapes.add(items.next());
         }
-    }
-
-    @Override
-    public void removeAll(List<Shape> items) {
-        while (items.hasNext()) {
-            shapes.remove(items.next());
-        }
+        next = shapes.getFirst();
     }
 
     @Override
@@ -42,28 +42,28 @@ public class ShapesList implements List<Shape> {
     }
 
     @Override
-    public boolean contains(Shape item) {
-        return false;
-    }
-
-    @Override
     public boolean hasNext() {
-        if (next == null) {
-            next = shapes.getFirst();
-            return true;
-        }
-
-        if (next != shapes.getLast()) {
-            next = shapes.get(shapes.indexOf(next) + 1);
-            return true;
-        }
-        next = null;
-
-        return false;
+        return next != null;
     }
 
     @Override
     public Shape next() {
-        return next;
+        if (isEmpty()) {
+            return null;
+        }
+
+        Shape result = next;
+
+        if (next == null) {
+            next = shapes.getFirst();
+        }
+        else if (next != shapes.getLast()) {
+            next = shapes.get(shapes.indexOf(next) + 1);
+        }
+        else {
+            next = null;
+        }
+
+        return result;
     }
 }

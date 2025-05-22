@@ -60,9 +60,38 @@ public abstract class Shape {
         return borderWidth;
     }
 
-    public void draw(GraphicsContext gc) {
-        gc.setStroke(getBorderColor());
-        gc.setLineWidth(getBorderWidth());
-        gc.setFill(getFillColor());
-    };
+    protected void swapPoints() {
+        Point2D startPoint = getStartPoint();
+        Point2D endPoint = getEndPoint();
+
+        if (startPoint.getX() > endPoint.getX()) {
+            setStartPoint(
+                    endPoint.getX(),
+                    startPoint.getY()
+            );
+
+            setEndPoint(
+                    startPoint.getX(),
+                    endPoint.getY()
+            );
+        }
+
+        if (startPoint.getY() > endPoint.getY()) {
+            setStartPoint(
+                    startPoint.getX(),
+                    endPoint.getY()
+            );
+
+            setEndPoint(
+                    endPoint.getX(),
+                    startPoint.getY()
+            );
+        }
+    }
+
+    public void draw(GraphicsContext drawingArea) {
+        drawingArea.setStroke(getBorderColor());
+        drawingArea.setLineWidth(getBorderWidth());
+        drawingArea.setFill(getFillColor());
+    }
 }
