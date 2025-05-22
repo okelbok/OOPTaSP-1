@@ -30,7 +30,7 @@ public class MainController implements Initializable {
     @FXML
     public MenuItem redoMenuItem;
 
-    private static PolygonVerticesController polygonVerticesController;
+    private static verticesController verticesController;
 
     private int borderWidth = 1;
 
@@ -54,8 +54,8 @@ public class MainController implements Initializable {
         setCurrentShapeIndex(button);
 
         if (currentShapeIndex == POLYGON_INDEX) {
-            polygonVerticesController.showModal();
-            drawingProcessManager.setVerticesCount(polygonVerticesController.getVerticesCount());
+            verticesController.showModal();
+            drawingProcessManager.setVerticesCount(verticesController.getVerticesCount());
         }
     }
 
@@ -104,10 +104,10 @@ public class MainController implements Initializable {
     }
 
     private void getPolygonModal() {
-        polygonVerticesController = PolygonVerticesController.getPolygonVerticesController();
+        verticesController = verticesController.getVerticesController();
 
-        if (polygonVerticesController != null) {
-            polygonVerticesController.setPolygonVerticesScene();
+        if (verticesController != null) {
+            verticesController.setVerticesScene();
         }
     }
 

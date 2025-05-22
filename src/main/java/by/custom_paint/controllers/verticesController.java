@@ -19,22 +19,22 @@ import javafx.stage.Stage;
 import javafx.scene.Scene;
 import javafx.scene.control.Spinner;
 
-public class PolygonVerticesController implements Initializable {
+public class verticesController implements Initializable {
     @FXML
     private Spinner<Integer> verticesCountSpinner;
 
     private int verticesCount = MIN_VERTICES_COUNT;
 
-    private Stage polygonVerticesDialog;
-    private Scene polygonVerticesScene = null;
+    private Stage verticesDialog;
+    private Scene verticesScene = null;
 
     private static final int MIN_VERTICES_COUNT = 3;
-    private static final FXMLLoader VERTICES_LOADER = new FXMLLoader(App.class.getResource("views/polygon_vertices_view.fxml"));
+    private static final FXMLLoader VERTICES_LOADER = new FXMLLoader(App.class.getResource("views/vertices_view.fxml"));
 
     @FXML
     private void okButtonClicked() {
         setVerticesCount(verticesCountSpinner.getValue());
-        polygonVerticesDialog.close();
+        verticesDialog.close();
     }
 
     private int setVerticesCount(int vertexesCount) {
@@ -47,14 +47,14 @@ public class PolygonVerticesController implements Initializable {
         return this.verticesCount;
     }
 
-    public static PolygonVerticesController getPolygonVerticesController() {
+    public static verticesController getVerticesController() {
         try {
             VERTICES_LOADER.load();
         }
         catch (IOException e) {
             MessageBoxHandler.showError(
-                    "Polygon vertices window error",
-                    "Resources for polygon vertices count window are missing or misplaced."
+                    "Vertices window error",
+                    "Resources for vertices count window are missing or misplaced."
             );
             return null;
         }
@@ -62,37 +62,37 @@ public class PolygonVerticesController implements Initializable {
         return VERTICES_LOADER.getController();
     }
 
-    public Scene setPolygonVerticesScene() {
-        if (polygonVerticesScene == null) {
+    public Scene setVerticesScene() {
+        if (verticesScene == null) {
             try {
-                polygonVerticesScene = new Scene(VERTICES_LOADER.load());
+                verticesScene = new Scene(VERTICES_LOADER.load());
             }
             catch (IOException e) {
-                polygonVerticesScene = new Scene(VERTICES_LOADER.getRoot());
+                verticesScene = new Scene(VERTICES_LOADER.getRoot());
             }
         }
 
-        return polygonVerticesScene;
+        return verticesScene;
     }
 
     public void showModal() {
         verticesCountSpinner.getValueFactory().setValue(setVerticesCount(MIN_VERTICES_COUNT));
 
-        polygonVerticesDialog = new Stage();
-        polygonVerticesDialog.initModality(Modality.APPLICATION_MODAL);
+        verticesDialog = new Stage();
+        verticesDialog.initModality(Modality.APPLICATION_MODAL);
 
-        polygonVerticesScene = setPolygonVerticesScene();
+        verticesScene = setVerticesScene();
 
-        polygonVerticesDialog.getIcons().add(App.getMainIcon());
-        polygonVerticesDialog.setTitle("Custom Paint: Polygon Vertices Count");
-        polygonVerticesDialog.setScene(polygonVerticesScene);
+        verticesDialog.getIcons().add(App.getMainIcon());
+        verticesDialog.setTitle("Custom Paint: Vertices Count");
+        verticesDialog.setScene(verticesScene);
 
-        polygonVerticesDialog.setResizable(false);
-        polygonVerticesDialog.showAndWait();
+        verticesDialog.setResizable(false);
+        verticesDialog.showAndWait();
     }
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        setPolygonVerticesScene();
+        setVerticesScene();
     }
 }
