@@ -10,7 +10,7 @@
          <SpinnerValueFactory.IntegerSpinnerValueFactory max="20" min="3" />
       </valueFactory>
    </Spinner>
-   <Label layoutX="93.0" layoutY="14.0" prefHeight="20.0" prefWidth="214.0" text="Choose polygon's vertexes count:" wrapText="true">
+   <Label layoutX="93.0" layoutY="14.0" prefHeight="20.0" prefWidth="214.0" text="Choose vertexes count:" wrapText="true">
       <font>
          <Font size="14.0" />
       </font>
