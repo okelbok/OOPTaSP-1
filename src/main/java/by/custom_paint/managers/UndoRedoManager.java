@@ -1,58 +1,83 @@
 package by.custom_paint.managers;
 
-import by.custom_paint.interfaces.commands.DrawCommand;
-import by.custom_paint.interfaces.commands.ShapesListCommands;
-import by.custom_paint.interfaces.observers.ShapeListObserver;
 import by.custom_paint.models.shapes.Shape;
+import by.custom_paint.interfaces.commands.*;
+import by.custom_paint.interfaces.observers.ShapeListObserver;
 
-import java.util.Stack;
+import java.util.ArrayDeque;
 
 public class UndoRedoManager implements ShapeListObserver {
-    private final Stack<Shape> undoStack;
-    private final Stack<Shape> redoStack;
+    private final ArrayDeque<Shape> undoDeque;
+    private final ArrayDeque<Shape> redoDeque;
+
+    private boolean isUndo = false;
+    private boolean isRedo = false;
 
     private final ShapesListCommands shapesListCommands;
     private final DrawCommand drawCommand;
 
     public UndoRedoManager(ShapesListCommands shapesListCommands, DrawCommand drawCommand) {
-        undoStack = new Stack<>();
-        redoStack = new Stack<>();
+        this.undoDeque = new ArrayDeque<>();
+        this.redoDeque = new ArrayDeque<>();
 
         this.shapesListCommands = shapesListCommands;
         this.drawCommand = drawCommand;
     }
 
     public void undo() {
-        if (undoStack.isEmpty()) {
+        if (undoDeque.isEmpty()) {
             return;
         }
 
-        Shape shapeToRemove = undoStack.pop();
+        isUndo = true;
+
+        Shape shapeToRemove = undoDeque.pollFirst();
 
         shapesListCommands.removeShape(shapeToRemove);
+        redoDeque.addFirst(shapeToRemove);
+
+        isUndo = false;
 
         drawCommand.redraw();
     }
 
     public void redo() {
-        if (redoStack.isEmpty()) {
+        if (redoDeque.isEmpty()) {
             return;
         }
 
-        Shape shapeToAdd = redoStack.pop();
+        isRedo = true;
+
+        Shape shapeToAdd = redoDeque.pollFirst();
 
         shapesListCommands.addShape(shapeToAdd);
+        undoDeque.addFirst(shapeToAdd);
+
+        isRedo = false;
 
         drawCommand.redraw();
     }
 
+    public void clearHistory() {
+        undoDeque.clear();
+        redoDeque.clear();
+    }
+
     @Override
     public void onShapeAdded(Shape shape) {
-        undoStack.push(shape);
+        if (!isRedo) {
+            undoDeque.addFirst(shape);
+
+            if (!isUndo) {
+                redoDeque.clear();
+            }
+        }
     }
 
     @Override
     public void onShapeRemoved(Shape shape) {
-        redoStack.push(shape);
+        if (!isUndo) {
+            redoDeque.addFirst(shape);
+        }
     }
 }
