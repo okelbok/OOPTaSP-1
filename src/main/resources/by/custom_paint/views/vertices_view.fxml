@@ -4,7 +4,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="112.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/11.0.14-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="by.custom_paint.controllers.verticesController">
+<AnchorPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="112.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/11.0.14-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="by.custom_paint.controllers.VerticesController">
    <Spinner fx:id="verticesCountSpinner" layoutX="93.0" layoutY="34.0" prefHeight="26.0" prefWidth="214.0">
       <valueFactory>
          <SpinnerValueFactory.IntegerSpinnerValueFactory max="20" min="3" />

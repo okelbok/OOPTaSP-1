@@ -30,7 +30,7 @@ public class MainController implements Initializable {
     @FXML
     public MenuItem redoMenuItem;
 
-    private static verticesController verticesController;
+    private static VerticesController verticesController;
 
     private int borderWidth = 1;
 
@@ -104,7 +104,7 @@ public class MainController implements Initializable {
     }
 
     private void getPolygonModal() {
-        verticesController = verticesController.getVerticesController();
+        verticesController = VerticesController.getVerticesController();
 
         if (verticesController != null) {
             verticesController.setVerticesScene();

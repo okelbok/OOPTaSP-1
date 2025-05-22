@@ -19,7 +19,7 @@ import javafx.stage.Stage;
 import javafx.scene.Scene;
 import javafx.scene.control.Spinner;
 
-public class verticesController implements Initializable {
+public class VerticesController implements Initializable {
     @FXML
     private Spinner<Integer> verticesCountSpinner;
 
@@ -47,7 +47,7 @@ public class verticesController implements Initializable {
         return this.verticesCount;
     }
 
-    public static verticesController getVerticesController() {
+    public static VerticesController getVerticesController() {
         try {
             VERTICES_LOADER.load();
         }
