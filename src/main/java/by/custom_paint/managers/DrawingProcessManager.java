@@ -1,31 +1,34 @@
 package by.custom_paint.managers;
 
-import by.custom_paint.models.lists.ShapesList;
-import by.custom_paint.models.shapes.PolyShape;
 import by.custom_paint.models.shapes.Shape;
+import by.custom_paint.models.shapes.PolyShape;
 import by.custom_paint.models.shapes.PolylineShape;
+import by.custom_paint.models.lists.ShapesList;
+
+import by.custom_paint.interfaces.commands.*;
 
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 
-public class DrawingProcessManager {
-    private final ShapesManager shapesManager;
+public class DrawingProcessManager implements DrawCommand {
+    private Shape currentShape;
 
     private int verticesCount;
     private boolean isPolyline = false;
 
-    private Shape currentShape;
+    private boolean isClicked = false;
 
     private final Canvas canvas;
     private final GraphicsContext drawingArea;
 
-    public DrawingProcessManager(Canvas canvas) {
+    private final ShapesListCommands shapesListCommands;
+
+    public DrawingProcessManager(ShapesListCommands shapesListCommands, Canvas canvas) {
+        this.shapesListCommands = shapesListCommands;
         this.canvas = canvas;
         drawingArea = canvas.getGraphicsContext2D();
-
-        shapesManager = ShapesManager.getInstance();
     }
 
     public int setVerticesCount(int verticesCount) {
@@ -35,7 +38,7 @@ public class DrawingProcessManager {
     }
 
     private void resetCurrentShape(int shapeIndex, Color fillColor, Color borderColor, int borderWidth) {
-        currentShape = shapesManager.createShape(shapeIndex);
+        currentShape = shapesListCommands.createShape(shapeIndex);
 
         currentShape.setFillColor(fillColor);
         currentShape.setBorderColor(borderColor);
@@ -48,26 +51,23 @@ public class DrawingProcessManager {
         isPolyline = currentShape instanceof PolylineShape;
     }
 
-    private void redraw() {
-        ShapesList shapes = shapesManager.getShapes();
-
-        clearCanvas(canvas);
-
-        shapes.resetIterator();
-        while (shapes.hasNext()) {
-            shapes.next().draw(drawingArea);
-        }
-    }
-
     private void drawShape() {
-        shapesManager.addShape(currentShape);
+        shapesListCommands.addShape(currentShape);
         currentShape = null;
         isPolyline = false;
 
         redraw();
     }
 
+    private void previewShape() {
+        redraw();
+
+        currentShape.draw(drawingArea);
+    }
+
     public void handleMousePressed(MouseEvent event, int shapeIndex, Color fillColor, Color borderColor, int borderWidth) {
+        isClicked = true;
+
         if (isPolyline) {
             if (event.isSecondaryButtonDown()) {
                 drawShape();
@@ -81,14 +81,12 @@ public class DrawingProcessManager {
         currentShape.setStartPoint(event.getX(), event.getY());
     }
 
-    private void previewShape() {
-        redraw();
-
-        currentShape.draw(drawingArea);
-    }
-
     public void handleMouseDragged(MouseEvent event) {
-        if (currentShape == null || event.isSecondaryButtonDown()) return;
+        isClicked = false;
+
+        if (currentShape == null || event.isSecondaryButtonDown()) {
+            return;
+        }
 
         currentShape.setEndPoint(event.getX(), event.getY());
 
@@ -96,7 +94,9 @@ public class DrawingProcessManager {
     }
 
     public void handleMouseReleased(MouseEvent event) {
-        if (currentShape == null || event.isSecondaryButtonDown()) return;
+        if (currentShape == null || isClicked || event.isSecondaryButtonDown()) {
+            return;
+        }
 
         if (isPolyline) {
             ((PolylineShape) currentShape).addVertex();
@@ -112,5 +112,17 @@ public class DrawingProcessManager {
         GraphicsContext drawingArea = canvas.getGraphicsContext2D();
 
         drawingArea.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
+    }
+
+    @Override
+    public void redraw() {
+        ShapesList shapes = shapesListCommands.getShapes();
+
+        clearCanvas(canvas);
+
+        shapes.resetIterator();
+        while (shapes.hasNext()) {
+            shapes.next().draw(drawingArea);
+        }
     }
 }

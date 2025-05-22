@@ -25,7 +25,7 @@ public class ShapesList implements List<Shape> {
     @Override
     public void remove(Shape item) {
         shapes.remove(item);
-        next = shapes.getFirst();
+        next = (!isEmpty()) ? shapes.getFirst() : null;
     }
 
     @Override

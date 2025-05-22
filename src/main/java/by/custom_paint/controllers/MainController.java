@@ -8,10 +8,7 @@ import java.net.URL;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 
-import javafx.scene.control.ColorPicker;
-import javafx.scene.control.Slider;
-import javafx.scene.control.Label;
-import javafx.scene.control.Button;
+import javafx.scene.control.*;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
@@ -28,6 +25,10 @@ public class MainController implements Initializable {
     private Label borderWidthLabel;
     @FXML
     private Canvas canvas;
+    @FXML
+    public MenuItem undoMenuItem;
+    @FXML
+    public MenuItem redoMenuItem;
 
     private static PolygonVerticesController polygonVerticesController;
 
@@ -35,7 +36,9 @@ public class MainController implements Initializable {
 
     private int currentShapeIndex;
 
+    private ShapesManager shapesManager;
     private DrawingProcessManager drawingProcessManager;
+    private UndoRedoManager undoRedoManager;
 
     private final int POLYGON_INDEX = 3;
 
@@ -77,6 +80,16 @@ public class MainController implements Initializable {
         drawingProcessManager.handleMouseReleased(event);
     }
 
+    @FXML
+    private void undoRequested() {
+        undoRedoManager.undo();
+    }
+
+    @FXML
+    private void redoRequested() {
+        undoRedoManager.redo();
+    }
+
     private void setEventListeners() {
         borderWidthSlider.valueProperty().addListener((observableValue, number, t1) -> {
             borderWidth = (int) borderWidthSlider.getValue();
@@ -104,6 +117,10 @@ public class MainController implements Initializable {
         setInitialLayout();
         getPolygonModal();
 
-        drawingProcessManager = new DrawingProcessManager(canvas);
+        shapesManager = ShapesManager.getInstance();
+        drawingProcessManager = new DrawingProcessManager(shapesManager, canvas);
+        undoRedoManager = new UndoRedoManager(shapesManager, drawingProcessManager);
+
+        shapesManager.addObserver(undoRedoManager);
     }
 }

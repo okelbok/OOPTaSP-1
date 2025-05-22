@@ -79,11 +79,11 @@
    </HBox>
    <MenuButton id="menu" alignment="CENTER" contentDisplay="CENTER" layoutY="-2.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="50.0">
      <items>
-       <MenuItem id="undo_menu_item" disable="true" mnemonicParsing="false" text="    Undo">
+       <MenuItem id="undo_menu_item" fx:id="undoMenuItem" mnemonicParsing="false" onAction="#undoRequested" text="    Undo">
             <accelerator>
                <KeyCodeCombination alt="UP" code="Z" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
             </accelerator></MenuItem>
-       <MenuItem id="redo_menu_item" disable="true" mnemonicParsing="false" text="    Redo">
+       <MenuItem id="redo_menu_item" fx:id="redoMenuItem" mnemonicParsing="false" onAction="#redoRequested" text="    Redo">
             <accelerator>
                <KeyCodeCombination alt="UP" code="Y" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
             </accelerator></MenuItem>
@@ -105,9 +105,6 @@
             </accelerator>
          </MenuItem>
      </items>
-      <tooltip>
-         <Tooltip text="Empty Tooltip" />
-      </tooltip>
    </MenuButton>
    <AnchorPane layoutX="50.0" layoutY="50.0" prefHeight="450.0" prefWidth="650.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="50.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="50.0">
       <Canvas fx:id="canvas" height="550.0" onMouseDragged="#mouseDragged" onMousePressed="#mousePressed" onMouseReleased="#mouseReleased" width="850.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
