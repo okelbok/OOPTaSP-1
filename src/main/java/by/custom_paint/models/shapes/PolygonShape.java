@@ -16,13 +16,6 @@ public class PolygonShape extends PolyShape {
         return endPoint;
     }
 
-    private Point2D getCenterPoint(double width, double height) {
-        double centerX = width / 2 + Math.min(getStartPoint().getX(), getEndPoint().getX());
-        double centerY = height / 2 + Math.min(getStartPoint().getY(), getEndPoint().getY());
-
-        return new Point2D(centerX, centerY);
-    }
-
     @Override
     public int setVerticesCount(int verticesCount) {
         super.setVerticesCount(verticesCount);
@@ -30,22 +23,26 @@ public class PolygonShape extends PolyShape {
         if (getEndPoint() != null) {
             ArrayList<Point2D> vertices = new ArrayList<>(getVerticesCount());
 
-            double width = Math.abs(getEndPoint().getX() - getStartPoint().getX());
-            double height = Math.abs(getEndPoint().getY() - getStartPoint().getY());
-            Point2D centerPoint = getCenterPoint(width, height);
-            double anglePitch = 2 * Math.PI / getVerticesCount();
+            Point2D startPoint = getStartPoint();
+            Point2D endPoint = getEndPoint();
+
+            double centerX = (startPoint.getX() + endPoint.getX()) / 2;
+            double centerY = (startPoint.getY() + endPoint.getY()) / 2;
+
+            double radiusX = Math.abs(endPoint.getX() - startPoint.getX()) / 2;
+            double radiusY = Math.abs(endPoint.getY() - startPoint.getY()) / 2;
+
+            double angleStep = 2 * Math.PI / getVerticesCount();
+
+            double initialAngle = -Math.PI / 2;
 
             for (int i = 0; i < getVerticesCount(); i++) {
-                double angle = i * anglePitch;
-                double sideLength = Math.min(
-                        (width / 2) / Math.abs(Math.cos(angle)),
-                        (height / 2) / Math.abs(Math.sin(angle))
-                );
+                double angle = initialAngle + i * angleStep;
 
-                vertices.add(new Point2D(
-                        centerPoint.getX() + sideLength * Math.cos(angle),
-                        centerPoint.getY() + sideLength * Math.sin(angle)
-                ));
+                double x = centerX + radiusX * Math.cos(angle);
+                double y = centerY + radiusY * Math.sin(angle);
+
+                vertices.add(new Point2D(x, y));
             }
 
             setVertices(vertices);

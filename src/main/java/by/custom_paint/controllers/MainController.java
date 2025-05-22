@@ -14,7 +14,6 @@ import javafx.scene.control.Label;
 import javafx.scene.control.Button;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 
 import javafx.event.ActionEvent;
@@ -29,8 +28,6 @@ public class MainController implements Initializable {
     private Label borderWidthLabel;
     @FXML
     private Canvas canvas;
-    @FXML
-    private AnchorPane canvasAnchorPane;
 
     private static PolygonVerticesController polygonVerticesController;
 
@@ -89,9 +86,6 @@ public class MainController implements Initializable {
     }
 
     private void setInitialLayout() {
-        canvas.widthProperty().bind(canvasAnchorPane.widthProperty());
-        canvas.heightProperty().bind(canvasAnchorPane.heightProperty());
-
         DrawingProcessManager.clearCanvas(canvas);
         borderColorPicker.setValue(Color.BLACK);
     }

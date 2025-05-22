@@ -30,9 +30,8 @@ public class App extends Application {
         stage.setTitle("Custom Paint");
         stage.setScene(scene);
 
+        stage.setResizable(false);
         stage.show();
-        stage.setMinWidth(stage.getWidth());
-        stage.setMinHeight(stage.getHeight());
     }
 
     public static void main(String[] args) {

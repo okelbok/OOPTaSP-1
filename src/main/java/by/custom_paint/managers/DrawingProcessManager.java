@@ -14,7 +14,7 @@ public class DrawingProcessManager {
     private final ShapesManager shapesManager;
 
     private int verticesCount;
-    private boolean isPolyline = true;
+    private boolean isPolyline = false;
 
     private Shape currentShape;
 
@@ -48,12 +48,6 @@ public class DrawingProcessManager {
         isPolyline = currentShape instanceof PolylineShape;
     }
 
-    public void handleMousePressed(MouseEvent event, int shapeIndex, Color fillColor, Color borderColor, int borderWidth) {
-        resetCurrentShape(shapeIndex, fillColor, borderColor, borderWidth);
-
-        currentShape.setStartPoint(event.getX(), event.getY());
-    }
-
     private void redraw() {
         ShapesList shapes = shapesManager.getShapes();
 
@@ -65,32 +59,47 @@ public class DrawingProcessManager {
         }
     }
 
+    private void drawShape() {
+        shapesManager.addShape(currentShape);
+        currentShape = null;
+        isPolyline = false;
+
+        redraw();
+    }
+
+    public void handleMousePressed(MouseEvent event, int shapeIndex, Color fillColor, Color borderColor, int borderWidth) {
+        if (isPolyline) {
+            if (event.isSecondaryButtonDown()) {
+                drawShape();
+                return;
+            }
+        }
+        else {
+            resetCurrentShape(shapeIndex, fillColor, borderColor, borderWidth);
+        }
+
+        currentShape.setStartPoint(event.getX(), event.getY());
+    }
+
     private void previewShape() {
         redraw();
+
         currentShape.draw(drawingArea);
     }
 
     public void handleMouseDragged(MouseEvent event) {
-        if (!isPolyline) {
-            currentShape.setEndPoint(event.getX(), event.getY());
-        }
-        else {
-            ((PolylineShape) currentShape).addVertex(event.getX(), event.getY(), drawingArea);
-        }
+        if (currentShape == null || event.isSecondaryButtonDown()) return;
+
+        currentShape.setEndPoint(event.getX(), event.getY());
 
         previewShape();
     }
 
-    private void drawShape() {
-        shapesManager.addShape(currentShape);
-        currentShape = null;
-
-        redraw();
-    }
-
     public void handleMouseReleased(MouseEvent event) {
-        if (isPolyline && event.getClickCount() != 2) {
-            ((PolylineShape) currentShape).addVertex(event.getX(), event.getY(), drawingArea);
+        if (currentShape == null || event.isSecondaryButtonDown()) return;
+
+        if (isPolyline) {
+            ((PolylineShape) currentShape).addVertex();
 
             previewShape();
         }
