@@ -28,7 +28,7 @@ public class DrawingProcessManager implements DrawCommand {
     public DrawingProcessManager(ShapesListCommands shapesListCommands, Canvas canvas) {
         this.shapesListCommands = shapesListCommands;
         this.canvas = canvas;
-        drawingArea = canvas.getGraphicsContext2D();
+        this.drawingArea = canvas.getGraphicsContext2D();
     }
 
     public int setVerticesCount(int verticesCount) {
@@ -38,39 +38,40 @@ public class DrawingProcessManager implements DrawCommand {
     }
 
     private void resetCurrentShape(int shapeIndex, Color fillColor, Color borderColor, int borderWidth) {
-        currentShape = shapesListCommands.createShape(shapeIndex);
+        this.currentShape = this.shapesListCommands.createShape(shapeIndex);
 
-        currentShape.setFillColor(fillColor);
-        currentShape.setBorderColor(borderColor);
-        currentShape.setBorderWidth(borderWidth);
+        this.currentShape.setFillColor(fillColor);
+        this.currentShape.setBorderColor(borderColor);
+        this.currentShape.setBorderWidth(borderWidth);
 
-        if (currentShape instanceof PolyShape) {
-            ((PolyShape) currentShape).setVerticesCount(verticesCount);
+        if (this.currentShape instanceof PolyShape) {
+            ((PolyShape) this.currentShape).setVerticesCount(this.verticesCount);
         }
 
-        isPolyline = currentShape instanceof PolylineShape;
-    }
-
-    private void drawShape() {
-        shapesListCommands.addShape(currentShape);
-        currentShape = null;
-        isPolyline = false;
-
-        redraw();
+        this.isPolyline = this.currentShape instanceof PolylineShape;
     }
 
     private void previewShape() {
         redraw();
 
-        currentShape.draw(drawingArea);
+        currentShape.draw(this.drawingArea);
+    }
+
+    private void drawShape() {
+        this.shapesListCommands.addShape(this.currentShape);
+        this.currentShape = null;
+        this.isPolyline = false;
+
+        redraw();
     }
 
     public void handleMousePressed(MouseEvent event, int shapeIndex, Color fillColor, Color borderColor, int borderWidth) {
-        isClicked = true;
+        this.isClicked = true;
 
-        if (isPolyline) {
+        if (this.isPolyline) {
             if (event.isSecondaryButtonDown()) {
                 drawShape();
+
                 return;
             }
         }
@@ -78,28 +79,28 @@ public class DrawingProcessManager implements DrawCommand {
             resetCurrentShape(shapeIndex, fillColor, borderColor, borderWidth);
         }
 
-        currentShape.setStartPoint(event.getX(), event.getY());
+        this.currentShape.setStartPoint(event.getX(), event.getY());
     }
 
     public void handleMouseDragged(MouseEvent event) {
-        isClicked = false;
+        this.isClicked = false;
 
-        if (currentShape == null || event.isSecondaryButtonDown()) {
+        if (this.currentShape == null || event.isSecondaryButtonDown()) {
             return;
         }
 
-        currentShape.setEndPoint(event.getX(), event.getY());
+        this.currentShape.setEndPoint(event.getX(), event.getY());
 
         previewShape();
     }
 
     public void handleMouseReleased(MouseEvent event) {
-        if (currentShape == null || isClicked || event.isSecondaryButtonDown()) {
+        if (this.currentShape == null || this.isClicked || event.isSecondaryButtonDown()) {
             return;
         }
 
-        if (isPolyline) {
-            ((PolylineShape) currentShape).addVertex();
+        if (this.isPolyline) {
+            ((PolylineShape) this.currentShape).addVertex();
 
             previewShape();
         }
@@ -116,13 +117,13 @@ public class DrawingProcessManager implements DrawCommand {
 
     @Override
     public void redraw() {
-        ShapesList shapes = shapesListCommands.getShapes();
+        ShapesList shapes = this.shapesListCommands.getShapes();
 
-        clearCanvas(canvas);
+        clearCanvas(this.canvas);
 
         shapes.resetIterator();
         while (shapes.hasNext()) {
-            shapes.next().draw(drawingArea);
+            shapes.next().draw(this.drawingArea);
         }
     }
 }

@@ -12,9 +12,9 @@ import javafx.scene.control.*;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
+import javafx.scene.paint.Color;
 
 import javafx.event.ActionEvent;
-import javafx.scene.paint.Color;
 
 public class MainController implements Initializable {
     @FXML
@@ -44,7 +44,7 @@ public class MainController implements Initializable {
 
     private void setCurrentShapeIndex(Button button) {
         HBox parent = (HBox) button.getParent();
-        currentShapeIndex = parent.getChildren().indexOf(button);
+        this.currentShapeIndex = parent.getChildren().indexOf(button);
     }
 
     @FXML
@@ -53,57 +53,57 @@ public class MainController implements Initializable {
 
         setCurrentShapeIndex(button);
 
-        if (currentShapeIndex == POLYGON_INDEX) {
+        if (this.currentShapeIndex == POLYGON_INDEX) {
             verticesController.showModal();
-            drawingProcessManager.setVerticesCount(verticesController.getVerticesCount());
+            this.drawingProcessManager.setVerticesCount(verticesController.getVerticesCount());
         }
     }
 
     @FXML
     private void mousePressed(MouseEvent event) {
-        drawingProcessManager.handleMousePressed(
+        this.drawingProcessManager.handleMousePressed(
                 event,
-                currentShapeIndex,
-                fillColorPicker.getValue(),
-                borderColorPicker.getValue(),
-                borderWidth
+                this.currentShapeIndex,
+                this.fillColorPicker.getValue(),
+                this.borderColorPicker.getValue(),
+                this.borderWidth
         );
     }
 
     @FXML
     private void mouseDragged(MouseEvent event) {
-        drawingProcessManager.handleMouseDragged(event);
+        this.drawingProcessManager.handleMouseDragged(event);
     }
 
     @FXML
     private void mouseReleased(MouseEvent event) {
-        drawingProcessManager.handleMouseReleased(event);
+        this.drawingProcessManager.handleMouseReleased(event);
     }
 
     @FXML
     private void undoRequested() {
-        undoRedoManager.undo();
+        this.undoRedoManager.undo();
     }
 
     @FXML
     private void redoRequested() {
-        undoRedoManager.redo();
+        this.undoRedoManager.redo();
     }
 
     private void setEventListeners() {
-        borderWidthSlider.valueProperty().addListener((observableValue, number, t1) -> {
-            borderWidth = (int) borderWidthSlider.getValue();
+        this.borderWidthSlider.valueProperty().addListener((observableValue, number, t1) -> {
+            this.borderWidth = (int) this.borderWidthSlider.getValue();
 
-            borderWidthLabel.setText(String.valueOf(borderWidth));
+            this.borderWidthLabel.setText(String.valueOf(this.borderWidth));
         });
     }
 
     private void setInitialLayout() {
-        DrawingProcessManager.clearCanvas(canvas);
-        borderColorPicker.setValue(Color.BLACK);
+        DrawingProcessManager.clearCanvas(this.canvas);
+        this.borderColorPicker.setValue(Color.BLACK);
     }
 
-    private void getPolygonModal() {
+    private void getVerticesModal() {
         verticesController = VerticesController.getVerticesController();
 
         if (verticesController != null) {
@@ -115,12 +115,12 @@ public class MainController implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
         setEventListeners();
         setInitialLayout();
-        getPolygonModal();
+        getVerticesModal();
 
-        shapesManager = ShapesManager.getInstance();
-        drawingProcessManager = new DrawingProcessManager(shapesManager, canvas);
-        undoRedoManager = new UndoRedoManager(shapesManager, drawingProcessManager);
+        this.shapesManager = ShapesManager.getInstance();
+        this.drawingProcessManager = new DrawingProcessManager(this.shapesManager, this.canvas);
+        this.undoRedoManager = new UndoRedoManager(this.shapesManager, this.drawingProcessManager);
 
-        shapesManager.addObserver(undoRedoManager);
+        this.shapesManager.addObserver(this.undoRedoManager);
     }
 }

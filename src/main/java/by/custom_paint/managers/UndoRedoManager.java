@@ -25,59 +25,59 @@ public class UndoRedoManager implements ShapeListObserver {
     }
 
     public void undo() {
-        if (undoDeque.isEmpty()) {
+        if (this.undoDeque.isEmpty()) {
             return;
         }
 
-        isUndo = true;
+        this.isUndo = true;
 
-        Shape shapeToRemove = undoDeque.pollFirst();
+        Shape shapeToRemove = this.undoDeque.pollFirst();
 
-        shapesListCommands.removeShape(shapeToRemove);
-        redoDeque.addFirst(shapeToRemove);
+        this.shapesListCommands.removeShape(shapeToRemove);
+        this.redoDeque.addFirst(shapeToRemove);
 
-        isUndo = false;
+        this.isUndo = false;
 
-        drawCommand.redraw();
+        this.drawCommand.redraw();
     }
 
     public void redo() {
-        if (redoDeque.isEmpty()) {
+        if (this.redoDeque.isEmpty()) {
             return;
         }
 
-        isRedo = true;
+        this.isRedo = true;
 
-        Shape shapeToAdd = redoDeque.pollFirst();
+        Shape shapeToAdd = this.redoDeque.pollFirst();
 
-        shapesListCommands.addShape(shapeToAdd);
-        undoDeque.addFirst(shapeToAdd);
+        this.shapesListCommands.addShape(shapeToAdd);
+        this.undoDeque.addFirst(shapeToAdd);
 
-        isRedo = false;
+        this.isRedo = false;
 
-        drawCommand.redraw();
+        this.drawCommand.redraw();
     }
 
     public void clearHistory() {
-        undoDeque.clear();
-        redoDeque.clear();
+        this.undoDeque.clear();
+        this.redoDeque.clear();
     }
 
     @Override
     public void onShapeAdded(Shape shape) {
-        if (!isRedo) {
-            undoDeque.addFirst(shape);
+        if (!this.isRedo) {
+            this.undoDeque.addFirst(shape);
 
-            if (!isUndo) {
-                redoDeque.clear();
+            if (!this.isUndo) {
+                this.redoDeque.clear();
             }
         }
     }
 
     @Override
     public void onShapeRemoved(Shape shape) {
-        if (!isUndo) {
-            redoDeque.addFirst(shape);
+        if (!this.isUndo) {
+            this.redoDeque.addFirst(shape);
         }
     }
 }

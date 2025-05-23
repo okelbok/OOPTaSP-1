@@ -1,6 +1,7 @@
 package by.custom_paint.controllers;
 
 import by.custom_paint.App;
+
 import by.custom_paint.common_utils.MessageBoxHandler;
 
 import java.util.ResourceBundle;
@@ -33,8 +34,8 @@ public class VerticesController implements Initializable {
 
     @FXML
     private void okButtonClicked() {
-        setVerticesCount(verticesCountSpinner.getValue());
-        verticesDialog.close();
+        setVerticesCount(this.verticesCountSpinner.getValue());
+        this.verticesDialog.close();
     }
 
     private int setVerticesCount(int vertexesCount) {
@@ -63,32 +64,32 @@ public class VerticesController implements Initializable {
     }
 
     public Scene setVerticesScene() {
-        if (verticesScene == null) {
+        if (this.verticesScene == null) {
             try {
-                verticesScene = new Scene(VERTICES_LOADER.load());
+                this.verticesScene = new Scene(VERTICES_LOADER.load());
             }
             catch (IOException e) {
-                verticesScene = new Scene(VERTICES_LOADER.getRoot());
+                this.verticesScene = new Scene(VERTICES_LOADER.getRoot());
             }
         }
 
-        return verticesScene;
+        return this.verticesScene;
     }
 
     public void showModal() {
-        verticesCountSpinner.getValueFactory().setValue(setVerticesCount(MIN_VERTICES_COUNT));
+        this.verticesCountSpinner.getValueFactory().setValue(setVerticesCount(MIN_VERTICES_COUNT));
 
-        verticesDialog = new Stage();
-        verticesDialog.initModality(Modality.APPLICATION_MODAL);
+        this.verticesDialog = new Stage();
+        this.verticesDialog.initModality(Modality.APPLICATION_MODAL);
 
-        verticesScene = setVerticesScene();
+        this.verticesScene = setVerticesScene();
 
-        verticesDialog.getIcons().add(App.getMainIcon());
-        verticesDialog.setTitle("Custom Paint: Vertices Count");
-        verticesDialog.setScene(verticesScene);
+        this.verticesDialog.getIcons().add(App.getMainIcon());
+        this.verticesDialog.setTitle("Custom Paint: Vertices Count");
+        this.verticesDialog.setScene(verticesScene);
 
-        verticesDialog.setResizable(false);
-        verticesDialog.showAndWait();
+        this.verticesDialog.setResizable(false);
+        this.verticesDialog.showAndWait();
     }
 
     @Override

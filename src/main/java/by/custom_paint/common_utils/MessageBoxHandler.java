@@ -1,11 +1,13 @@
 package by.custom_paint.common_utils;
 
 import by.custom_paint.App;
-import javafx.scene.control.Alert;
-import javafx.scene.control.ButtonType;
-import javafx.stage.Stage;
 
 import java.util.Optional;
+
+import javafx.stage.Stage;
+
+import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
 
 public class MessageBoxHandler {
     public static void showError(String message, String comment) {

@@ -32,9 +32,9 @@ public class ShapesManager implements ShapesListCommands {
     private final List<ShapeListObserver> shapeListObservers;
 
     private ShapesManager() {
-        shapes = new ShapesList();
-        shapeTypes = shapesFactory.keySet().stream().toList();
-        shapeListObservers = new ArrayList<>();
+        this.shapes = new ShapesList();
+        this.shapeTypes = shapesFactory.keySet().stream().toList();
+        this.shapeListObservers = new ArrayList<>();
     }
 
     public static ShapesManager getInstance() {
@@ -46,19 +46,19 @@ public class ShapesManager implements ShapesListCommands {
     }
 
     public void addObserver(ShapeListObserver observer) {
-        shapeListObservers.add(observer);
+        this.shapeListObservers.add(observer);
     }
 
     @Override
     public Shape createShape(int shapeIndex) {
-        ShapeCreator<Shape> creator = shapesFactory.get(shapeTypes.get(shapeIndex));
+        ShapeCreator<Shape> creator = shapesFactory.get(this.shapeTypes.get(shapeIndex));
 
         return creator.create();
     }
 
     @Override
     public void addShape(Shape shape) {
-        shapes.add(shape);
+        this.shapes.add(shape);
 
         for (ShapeListObserver observer : shapeListObservers) {
             observer.onShapeAdded(shape);
@@ -67,7 +67,7 @@ public class ShapesManager implements ShapesListCommands {
 
     @Override
     public void removeShape(Shape shape) {
-        shapes.remove(shape);
+        this.shapes.remove(shape);
 
         for (ShapeListObserver observer : shapeListObservers) {
             observer.onShapeRemoved(shape);
@@ -81,7 +81,7 @@ public class ShapesManager implements ShapesListCommands {
 
     @Override
     public ShapesList getShapes() {
-        return shapes;
+        return this.shapes;
     }
     // TODO: add plugin integration
 }
