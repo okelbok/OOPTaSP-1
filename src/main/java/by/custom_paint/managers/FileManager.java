@@ -1,9 +1,13 @@
 package by.custom_paint.managers;
 
-import by.custom_paint.models.lists.ShapesList;
+import by.custom_paint.models.lists.ShapeList;
 
-abstract class FileManager {
-    abstract public ShapesList loadFromFile(String path);
+public class FileManager {
+    public ShapeList loadFromFile(String path) {
+        return null;
+    }
 
-    abstract public void saveToFile(String path, ShapesList shapes);
+    public void saveToFile(String path, ShapeList shapes) {
+
+    }
 }

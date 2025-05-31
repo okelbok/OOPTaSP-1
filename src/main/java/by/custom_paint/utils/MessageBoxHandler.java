@@ -1,4 +1,4 @@
-package by.custom_paint.common_utils;
+package by.custom_paint.utils;
 
 import by.custom_paint.App;
 

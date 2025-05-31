@@ -1,9 +1,13 @@
 package by.custom_paint.controllers;
 
+import by.custom_paint.models.shapes.base.Shape;
+
 import by.custom_paint.managers.*;
 
 import java.util.*;
 import java.net.URL;
+
+import javafx.event.Event;
 
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -13,8 +17,6 @@ import javafx.scene.canvas.Canvas;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
-
-import javafx.event.ActionEvent;
 
 public class MainController implements Initializable {
     @FXML
@@ -26,9 +28,7 @@ public class MainController implements Initializable {
     @FXML
     private Canvas canvas;
     @FXML
-    public MenuItem undoMenuItem;
-    @FXML
-    public MenuItem redoMenuItem;
+    private ChoiceBox<String> pluginsChoiceBox;
 
     private static VerticesController verticesController;
 
@@ -36,24 +36,33 @@ public class MainController implements Initializable {
 
     private int currentShapeIndex;
 
-    private ShapesManager shapesManager;
+    private ShapeManager shapeManager;
     private DrawingProcessManager drawingProcessManager;
     private UndoRedoManager undoRedoManager;
+    private FileManager fileManager;
 
-    private final int POLYGON_INDEX = 3;
+    private void setCurrentShapeIndex(Control control) {
+        HBox parent = (HBox) control.getParent();
 
-    private void setCurrentShapeIndex(Button button) {
-        HBox parent = (HBox) button.getParent();
-        this.currentShapeIndex = parent.getChildren().indexOf(button);
+        if (control instanceof Button) {
+            this.currentShapeIndex = parent.getChildren().indexOf(control);
+        }
     }
 
     @FXML
-    private void buttonClicked(ActionEvent event) {
-        Button button = (Button) event.getSource();
+    private void choiceItemClicked(Event event) {
+        Control control = (Control) event.getSource();
 
-        setCurrentShapeIndex(button);
+        setCurrentShapeIndex(control);
 
-        if (this.currentShapeIndex == POLYGON_INDEX) {
+        Shape shape = this.drawingProcessManager.initDrawingProcess(
+                this.currentShapeIndex,
+                this.fillColorPicker.getValue(),
+                this.borderColorPicker.getValue(),
+                this.borderWidth
+        );
+
+        if (shape.isPolyVertex()) {
             verticesController.showModal();
             this.drawingProcessManager.setVerticesCount(verticesController.getVerticesCount());
         }
@@ -90,6 +99,16 @@ public class MainController implements Initializable {
         this.undoRedoManager.redo();
     }
 
+    @FXML
+    private void loadFromFileRequested() {
+
+    }
+
+    @FXML
+    private void saveToFileRequested() {
+
+    }
+
     private void setEventListeners() {
         this.borderWidthSlider.valueProperty().addListener((observableValue, number, t1) -> {
             this.borderWidth = (int) this.borderWidthSlider.getValue();
@@ -117,10 +136,11 @@ public class MainController implements Initializable {
         setInitialLayout();
         getVerticesModal();
 
-        this.shapesManager = ShapesManager.getInstance();
-        this.drawingProcessManager = new DrawingProcessManager(this.shapesManager, this.canvas);
-        this.undoRedoManager = new UndoRedoManager(this.shapesManager, this.drawingProcessManager);
+        this.shapeManager = ShapeManager.getInstance();
+        this.drawingProcessManager = new DrawingProcessManager(this.shapeManager, this.canvas);
+        this.undoRedoManager = new UndoRedoManager(this.shapeManager, this.drawingProcessManager);
+        this.fileManager = new FileManager();
 
-        this.shapesManager.addObserver(this.undoRedoManager);
+        this.shapeManager.addObserver(this.undoRedoManager);
     }
 }

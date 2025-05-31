@@ -1,12 +1,5 @@
 package by.custom_paint.managers;
 
-import by.custom_paint.models.lists.PluginsList;
-import by.custom_paint.models.utils.Plugin;
+public class PluginManager {
 
-abstract class PluginManager {
-    private PluginsList pluginsList;
-
-    abstract public Plugin getPluginFormFile(String path);
-
-    abstract public Plugin addPlugin(String path);
 }

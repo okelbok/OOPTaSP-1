@@ -1,4 +1,4 @@
-package by.custom_paint.interfaces.commands;
+package by.custom_paint.services.commands;
 
 public interface DrawCommand {
     void redraw();

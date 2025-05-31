@@ -2,7 +2,7 @@ package by.custom_paint.controllers;
 
 import by.custom_paint.App;
 
-import by.custom_paint.common_utils.MessageBoxHandler;
+import by.custom_paint.utils.MessageBoxHandler;
 
 import java.util.ResourceBundle;
 
@@ -32,20 +32,16 @@ public class VerticesController implements Initializable {
     private static final int MIN_VERTICES_COUNT = 3;
     private static final FXMLLoader VERTICES_LOADER = new FXMLLoader(App.class.getResource("views/vertices_view.fxml"));
 
-    @FXML
-    private void okButtonClicked() {
-        setVerticesCount(this.verticesCountSpinner.getValue());
-        this.verticesDialog.close();
-    }
-
     private int setVerticesCount(int vertexesCount) {
         this.verticesCount = vertexesCount;
 
         return this.verticesCount;
     }
 
-    public int getVerticesCount() {
-        return this.verticesCount;
+    @FXML
+    private void okButtonClicked() {
+        setVerticesCount(this.verticesCountSpinner.getValue());
+        this.verticesDialog.close();
     }
 
     public static VerticesController getVerticesController() {
@@ -61,6 +57,10 @@ public class VerticesController implements Initializable {
         }
 
         return VERTICES_LOADER.getController();
+    }
+
+    public int getVerticesCount() {
+        return this.verticesCount;
     }
 
     public Scene setVerticesScene() {

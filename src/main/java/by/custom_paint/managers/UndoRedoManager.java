@@ -1,8 +1,9 @@
 package by.custom_paint.managers;
 
-import by.custom_paint.models.shapes.Shape;
-import by.custom_paint.interfaces.commands.*;
-import by.custom_paint.interfaces.observers.ShapeListObserver;
+import by.custom_paint.models.shapes.base.Shape;
+
+import by.custom_paint.services.commands.*;
+import by.custom_paint.services.observers.ShapeListObserver;
 
 import java.util.ArrayDeque;
 
@@ -13,14 +14,14 @@ public class UndoRedoManager implements ShapeListObserver {
     private boolean isUndo = false;
     private boolean isRedo = false;
 
-    private final ShapesListCommands shapesListCommands;
+    private final ShapeListCommands shapeListCommands;
     private final DrawCommand drawCommand;
 
-    public UndoRedoManager(ShapesListCommands shapesListCommands, DrawCommand drawCommand) {
+    public UndoRedoManager(ShapeListCommands shapeListCommands, DrawCommand drawCommand) {
         this.undoDeque = new ArrayDeque<>();
         this.redoDeque = new ArrayDeque<>();
 
-        this.shapesListCommands = shapesListCommands;
+        this.shapeListCommands = shapeListCommands;
         this.drawCommand = drawCommand;
     }
 
@@ -33,7 +34,7 @@ public class UndoRedoManager implements ShapeListObserver {
 
         Shape shapeToRemove = this.undoDeque.pollFirst();
 
-        this.shapesListCommands.removeShape(shapeToRemove);
+        this.shapeListCommands.removeShape(shapeToRemove);
         this.redoDeque.addFirst(shapeToRemove);
 
         this.isUndo = false;
@@ -50,7 +51,7 @@ public class UndoRedoManager implements ShapeListObserver {
 
         Shape shapeToAdd = this.redoDeque.pollFirst();
 
-        this.shapesListCommands.addShape(shapeToAdd);
+        this.shapeListCommands.addShape(shapeToAdd);
         this.undoDeque.addFirst(shapeToAdd);
 
         this.isRedo = false;

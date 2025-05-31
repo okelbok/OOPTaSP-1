@@ -1,14 +1,14 @@
 package by.custom_paint.managers;
 
-import by.custom_paint.models.shapes.Shape;
-import by.custom_paint.models.shapes.PolyShape;
-import by.custom_paint.models.shapes.PolylineShape;
-import by.custom_paint.models.lists.ShapesList;
+import by.custom_paint.models.shapes.base.*;
 
-import by.custom_paint.interfaces.commands.*;
+import by.custom_paint.models.lists.ShapeList;
+
+import by.custom_paint.services.commands.*;
 
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
+
 import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 
@@ -16,67 +16,89 @@ public class DrawingProcessManager implements DrawCommand {
     private Shape currentShape;
 
     private int verticesCount;
-    private boolean isPolyline = false;
 
     private boolean isClicked = false;
 
     private final Canvas canvas;
     private final GraphicsContext drawingArea;
 
-    private final ShapesListCommands shapesListCommands;
+    private final ShapeListCommands shapeListCommands;
 
-    public DrawingProcessManager(ShapesListCommands shapesListCommands, Canvas canvas) {
-        this.shapesListCommands = shapesListCommands;
+    public DrawingProcessManager(ShapeListCommands shapeListCommands, Canvas canvas) {
+        this.shapeListCommands = shapeListCommands;
         this.canvas = canvas;
         this.drawingArea = canvas.getGraphicsContext2D();
     }
 
-    public int setVerticesCount(int verticesCount) {
-        this.verticesCount = verticesCount;
-
-        return this.verticesCount;
+    private void setCurrentShapeVerticesCount() {
+        if (this.currentShape instanceof PolyShape) {
+            ((PolyShape) this.currentShape).setVerticesCount(this.verticesCount);
+        }
     }
 
     private void resetCurrentShape(int shapeIndex, Color fillColor, Color borderColor, int borderWidth) {
-        this.currentShape = this.shapesListCommands.createShape(shapeIndex);
+        this.currentShape = this.shapeListCommands.createShape(shapeIndex);
 
         this.currentShape.setFillColor(fillColor);
         this.currentShape.setBorderColor(borderColor);
         this.currentShape.setBorderWidth(borderWidth);
 
-        if (this.currentShape instanceof PolyShape) {
-            ((PolyShape) this.currentShape).setVerticesCount(this.verticesCount);
-        }
-
-        this.isPolyline = this.currentShape instanceof PolylineShape;
+        this.setCurrentShapeVerticesCount();
     }
 
     private void previewShape() {
         redraw();
 
-        currentShape.draw(this.drawingArea);
+        this.currentShape.draw(this.drawingArea);
     }
 
     private void drawShape() {
-        this.shapesListCommands.addShape(this.currentShape);
-        this.currentShape = null;
-        this.isPolyline = false;
+        this.shapeListCommands.addShape(this.currentShape);
 
         redraw();
+
+        if (this.currentShape instanceof BoundedShape) {
+            ((BoundedShape) this.currentShape).normalizePoints();
+        }
+        this.currentShape = null;
+    }
+
+    public static void clearCanvas(Canvas canvas) {
+        GraphicsContext drawingArea = canvas.getGraphicsContext2D();
+
+        drawingArea.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
+    }
+
+    public int setVerticesCount(int verticesCount) {
+        this.verticesCount = verticesCount;
+        this.setCurrentShapeVerticesCount();
+
+        return this.verticesCount;
+    }
+
+    public Shape initDrawingProcess(int shapeIndex, Color fillColor, Color borderColor, int borderWidth) {
+        if (this.currentShape != null && this.currentShape.isMultiClick()) {
+            drawShape();
+        }
+
+        resetCurrentShape(shapeIndex, fillColor, borderColor, borderWidth);
+
+        return this.currentShape;
     }
 
     public void handleMousePressed(MouseEvent event, int shapeIndex, Color fillColor, Color borderColor, int borderWidth) {
         this.isClicked = true;
 
-        if (this.isPolyline) {
+        if (this.currentShape == null) {
+            initDrawingProcess(shapeIndex, fillColor, borderColor, borderWidth);
+        }
+
+        if (this.currentShape.isMultiClick()) {
             if (event.isSecondaryButtonDown()) {
                 drawShape();
 
                 return;
             }
-        }
-        else {
-            resetCurrentShape(shapeIndex, fillColor, borderColor, borderWidth);
         }
 
         this.currentShape.setStartPoint(event.getX(), event.getY());
@@ -99,8 +121,8 @@ public class DrawingProcessManager implements DrawCommand {
             return;
         }
 
-        if (this.isPolyline) {
-            ((PolylineShape) this.currentShape).addVertex();
+        if (this.currentShape.isMultiClick()) {
+            ((PolyShape) this.currentShape).addVertex();
 
             previewShape();
         }
@@ -109,15 +131,9 @@ public class DrawingProcessManager implements DrawCommand {
         }
     }
 
-    public static void clearCanvas(Canvas canvas) {
-        GraphicsContext drawingArea = canvas.getGraphicsContext2D();
-
-        drawingArea.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
-    }
-
     @Override
     public void redraw() {
-        ShapesList shapes = this.shapesListCommands.getShapes();
+        ShapeList shapes = this.shapeListCommands.getShapes();
 
         clearCanvas(this.canvas);
 

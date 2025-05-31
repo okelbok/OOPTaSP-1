@@ -7,7 +7,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane id="main_pane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="900.0" scaleShape="false" stylesheets="@../styles/style.css" xmlns="http://javafx.com/javafx/11.0.14-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="by.custom_paint.controllers.MainController">
+<AnchorPane id="main_pane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="900.0" scaleShape="false" stylesheets="@../styles/style.css" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="by.custom_paint.controllers.MainController">
    <VBox id="controls_vbox" alignment="CENTER" prefHeight="500.0" prefWidth="50.0" spacing="5.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
       <Label text="Fill Color" textAlignment="CENTER" textFill="WHITE" wrapText="true">
          <font>
@@ -50,58 +50,62 @@
          </font>
       </Label>
    </VBox>
-   <HBox id="shapes_hbox" alignment="TOP_CENTER" layoutX="50.0" layoutY="-1.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="50.0" prefWidth="650.0" AnchorPane.leftAnchor="50.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-      <Button id="line_button" mnemonicParsing="false" onAction="#buttonClicked" prefHeight="50.0" prefWidth="45.0">
+   <HBox id="shapes_hbox" alignment="CENTER" layoutX="50.0" layoutY="-1.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="50.0" prefWidth="650.0" AnchorPane.leftAnchor="50.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <Button id="line_button" mnemonicParsing="false" onAction="#choiceItemClicked" prefHeight="50.0" prefWidth="45.0">
          <HBox.margin>
             <Insets bottom="5.0" left="10.0" right="10.0" top="5.0" />
          </HBox.margin>
       </Button>
-      <Button id="rectangle_button" layoutX="310.0" layoutY="10.0" mnemonicParsing="false" onAction="#buttonClicked" prefHeight="50.0" prefWidth="45.0" styleClass="button">
+      <Button id="rectangle_button" layoutX="310.0" layoutY="10.0" mnemonicParsing="false" onAction="#choiceItemClicked" prefHeight="50.0" prefWidth="45.0" styleClass="button">
          <HBox.margin>
             <Insets bottom="5.0" left="10.0" right="10.0" top="5.0" />
          </HBox.margin>
       </Button>
-      <Button id="ellipse_button" layoutX="284.0" layoutY="10.0" mnemonicParsing="false" onAction="#buttonClicked" prefHeight="50.0" prefWidth="45.0" styleClass="button">
+      <Button id="ellipse_button" layoutX="284.0" layoutY="10.0" mnemonicParsing="false" onAction="#choiceItemClicked" prefHeight="50.0" prefWidth="45.0" styleClass="button">
          <HBox.margin>
             <Insets bottom="5.0" left="10.0" right="10.0" top="5.0" />
          </HBox.margin>
       </Button>
-      <Button id="polygon_button" layoutX="360.0" layoutY="10.0" mnemonicParsing="false" onAction="#buttonClicked" prefHeight="50.0" prefWidth="45.0" styleClass="button">
+      <Button id="polygon_button" layoutX="360.0" layoutY="10.0" mnemonicParsing="false" onAction="#choiceItemClicked" prefHeight="50.0" prefWidth="45.0" styleClass="button">
          <HBox.margin>
             <Insets bottom="5.0" left="10.0" right="10.0" top="5.0" />
          </HBox.margin>
       </Button>
-      <Button id="polyline_button" layoutX="385.0" layoutY="10.0" mnemonicParsing="false" onAction="#buttonClicked" prefHeight="50.0" prefWidth="45.0" styleClass="button">
+      <Button id="polyline_button" layoutX="385.0" layoutY="10.0" mnemonicParsing="false" onAction="#choiceItemClicked" prefHeight="50.0" prefWidth="45.0" styleClass="button">
          <HBox.margin>
             <Insets bottom="5.0" left="10.0" right="10.0" top="5.0" />
          </HBox.margin>
       </Button>
+      <ChoiceBox fx:id="pluginsChoiceBox" onMouseClicked="#choiceItemClicked" prefHeight="26.0" prefWidth="150.0" styleClass="button">
+         <HBox.margin>
+            <Insets left="10.0" />
+         </HBox.margin></ChoiceBox>
    </HBox>
    <MenuButton id="menu" alignment="CENTER" contentDisplay="CENTER" layoutY="-2.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="50.0">
      <items>
-       <MenuItem id="undo_menu_item" fx:id="undoMenuItem" mnemonicParsing="false" onAction="#undoRequested" text="    Undo">
+       <MenuItem id="undo_menu_item" mnemonicParsing="false" onAction="#undoRequested" text="    Undo">
             <accelerator>
                <KeyCodeCombination alt="UP" code="Z" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
             </accelerator></MenuItem>
-       <MenuItem id="redo_menu_item" fx:id="redoMenuItem" mnemonicParsing="false" onAction="#redoRequested" text="    Redo">
+       <MenuItem id="redo_menu_item" mnemonicParsing="false" onAction="#redoRequested" text="    Redo">
             <accelerator>
                <KeyCodeCombination alt="UP" code="Y" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
             </accelerator></MenuItem>
          <SeparatorMenuItem mnemonicParsing="false" />
-         <MenuItem id="load_menu_item" disable="true" mnemonicParsing="false" text="    Load From File">
+         <MenuItem id="load_menu_item" fx:id="loadFromFileRequested" mnemonicParsing="false" text="    Load From File">
             <accelerator>
                <KeyCodeCombination alt="UP" code="L" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
             </accelerator>
          </MenuItem>
-         <MenuItem id="save_menu_item" disable="true" mnemonicParsing="false" text="    Save To File">
+         <MenuItem id="save_menu_item" fx:id="saveToFileRequested" mnemonicParsing="false" text="    Save To File">
             <accelerator>
                <KeyCodeCombination alt="UP" code="S" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
             </accelerator>
          </MenuItem>
          <SeparatorMenuItem mnemonicParsing="false" />
-         <MenuItem id="plugin_menu_item" disable="true" mnemonicParsing="false" text="    Add Plugin">
+         <MenuItem id="plugin_menu_item" mnemonicParsing="false" text="    Add Plugin">
             <accelerator>
-               <KeyCodeCombination alt="DOWN" code="A" control="UP" meta="UP" shift="UP" shortcut="UP" />
+               <KeyCodeCombination alt="DOWN" code="P" control="UP" meta="UP" shift="UP" shortcut="UP" />
             </accelerator>
          </MenuItem>
      </items>

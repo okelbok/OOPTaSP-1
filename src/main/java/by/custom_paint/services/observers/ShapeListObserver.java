@@ -1,6 +1,6 @@
-package by.custom_paint.interfaces.observers;
+package by.custom_paint.services.observers;
 
-import by.custom_paint.models.shapes.Shape;
+import by.custom_paint.models.shapes.base.Shape;
 
 public interface ShapeListObserver {
     void onShapeAdded(Shape shape);
