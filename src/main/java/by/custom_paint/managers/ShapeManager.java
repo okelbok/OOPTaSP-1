@@ -14,25 +14,15 @@ import java.util.List;
 import java.util.ArrayList;
 
 public class ShapeManager implements ShapeListCommands {
-    private static ShapeManager instance;
-
     private final ShapeList shapes;
     private final ShapeFactory shapeFactory;
 
     private final List<ShapeListObserver> shapeListObservers;
 
-    private ShapeManager() {
+    public ShapeManager() {
         this.shapes = new ShapeList();
         this.shapeFactory = ShapeFactory.getInstance();
         this.shapeListObservers = new ArrayList<>();
-    }
-
-    public static ShapeManager getInstance() {
-        if (instance == null) {
-            instance = new ShapeManager();
-        }
-
-        return instance;
     }
 
     public void addObserver(ShapeListObserver observer) {

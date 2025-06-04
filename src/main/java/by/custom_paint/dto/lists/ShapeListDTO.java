@@ -33,8 +33,12 @@ public class ShapeListDTO implements Serializable {
     public ShapeList toShapeList() {
         ShapeList shapes = new ShapeList();
 
-        for (ShapeDTO shape : this.shapes) {
-            shapes.add(shape.toShape());
+        for (ShapeDTO shapeDTO : this.shapes) {
+            Shape shape = shapeDTO.toShape();
+
+            if (shape != null) {
+                shapes.add(shape);
+            }
         }
 
         return shapes;

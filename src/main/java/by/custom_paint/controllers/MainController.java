@@ -5,6 +5,8 @@ import by.custom_paint.models.shapes.base.Shape;
 
 import by.custom_paint.managers.*;
 
+import by.custom_paint.utils.MessageBoxHandler;
+
 import java.util.*;
 import java.net.URL;
 
@@ -35,12 +37,13 @@ public class MainController implements Initializable {
 
     private int borderWidth = 1;
 
-    private int currentShapeIndex;
+    private int currentShapeIndex = 0;
 
     private ShapeManager shapeManager;
     private DrawingProcessManager drawingProcessManager;
     private UndoRedoManager undoRedoManager;
     private FileManager fileManager;
+    private PluginManager pluginManager;
 
     private final static int BASE_SHAPES_COUNT = 5;
 
@@ -52,14 +55,7 @@ public class MainController implements Initializable {
         }
     }
 
-    @FXML
-    private void shapeButtonClicked(Event event) {
-        Control control = (Control) event.getSource();
-
-        this.pluginsChoiceBox.getSelectionModel().clearSelection();
-
-        setCurrentShapeIndex(control);
-
+    private void changeShape() {
         Shape shape = this.drawingProcessManager.initDrawingProcess(
                 this.currentShapeIndex,
                 this.fillColorPicker.getValue(),
@@ -71,6 +67,17 @@ public class MainController implements Initializable {
             verticesController.showModal();
             this.drawingProcessManager.setVerticesCount(verticesController.getVerticesCount());
         }
+    }
+
+    @FXML
+    private void shapeButtonClicked(Event event) {
+        Control control = (Control) event.getSource();
+
+        this.pluginsChoiceBox.getSelectionModel().clearSelection();
+
+        setCurrentShapeIndex(control);
+
+        changeShape();
     }
 
     @FXML
@@ -127,7 +134,21 @@ public class MainController implements Initializable {
 
     @FXML
     private void pluginLoadRequested() {
+        String pluginShapeType = null;
 
+        try {
+            pluginShapeType = this.pluginManager.loadPlugin();
+        }
+        catch (Exception e) {
+            MessageBoxHandler.showError(
+                    "Plugin load error",
+                    e.getMessage()
+            );
+        }
+
+        if (pluginShapeType != null) {
+            this.pluginsChoiceBox.getItems().add(pluginShapeType);
+        }
     }
 
     private void setEventListeners() {
@@ -141,8 +162,16 @@ public class MainController implements Initializable {
         });
 
         this.pluginsChoiceBox.getSelectionModel().selectedIndexProperty().addListener(
-                (observableValue, oldValue, newValue) ->
-                        this.currentShapeIndex = BASE_SHAPES_COUNT + newValue.intValue());
+                (observableValue, oldValue, newValue) -> {
+                    if (!this.pluginsChoiceBox.getItems().isEmpty() && newValue.intValue() > -1) {
+                        this.currentShapeIndex = BASE_SHAPES_COUNT + newValue.intValue();
+                    }
+                    else {
+                        this.currentShapeIndex = 0;
+                    }
+
+                    changeShape();
+        });
     }
 
     private void setInitialLayout() {
@@ -164,10 +193,11 @@ public class MainController implements Initializable {
         setInitialLayout();
         getVerticesModal();
 
-        this.shapeManager = ShapeManager.getInstance();
-        this.drawingProcessManager = new DrawingProcessManager(this.shapeManager, this.canvas);
+        this.shapeManager = new ShapeManager();
+        this.drawingProcessManager = new DrawingProcessManager(this.canvas, this.shapeManager);
         this.undoRedoManager = new UndoRedoManager(this.shapeManager, this.drawingProcessManager);
         this.fileManager = new FileManager(App.getStage(), this.shapeManager, this.drawingProcessManager);
+        this.pluginManager = new PluginManager(App.getStage());
 
         this.shapeManager.addObserver(this.undoRedoManager);
     }

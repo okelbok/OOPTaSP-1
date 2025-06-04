@@ -106,7 +106,7 @@ public class FileManager {
                     "At least one shape has to be drawn."
             );
 
-            return ;
+            return;
         }
 
         this.fileChooser.setTitle("Save Shape List File");

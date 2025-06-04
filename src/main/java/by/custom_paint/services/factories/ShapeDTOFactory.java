@@ -1,6 +1,7 @@
 package by.custom_paint.services.factories;
 
 import by.custom_paint.models.shapes.base.Shape;
+import by.custom_paint.models.shapes.base.PolyShape;
 
 import by.custom_paint.dto.shapes.*;
 
@@ -17,8 +18,8 @@ public class ShapeDTOFactory {
         this.shapeDTOCreators = new HashMap<>()
         {
             {
-                put("Shape", ShapeDTO::new);
-                put("PolyShape", PolyShapeDTO::new);
+                put(Shape.class.getSimpleName(), ShapeDTO::new);
+                put(PolyShape.class.getSimpleName(), PolyShapeDTO::new);
             }
         };
     }
@@ -33,6 +34,10 @@ public class ShapeDTOFactory {
 
     public ShapeDTO createShapeDTO(Shape shape) {
         ShapeDTOCreator<Shape> creator = this.shapeDTOCreators.get(shape.getClass().getSimpleName());
+
+        if (creator == null) {
+            creator = this.shapeDTOCreators.get(Shape.class.getSimpleName());
+        }
 
         return creator.createShapeDTO(shape);
     }

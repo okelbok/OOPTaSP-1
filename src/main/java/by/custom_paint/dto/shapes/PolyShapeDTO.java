@@ -35,6 +35,10 @@ public class PolyShapeDTO extends ShapeDTO {
 
     @Override
     public Shape toShape() {
+        if (!ShapeFactory.getInstance().containsShapeType(this.shapeType)) {
+            return null;
+        }
+
         PolyShape shape = (PolyShape) ShapeFactory.getInstance().createShape(this.getShapeType());
 
         shape.setVerticesCount(this.verticesCount);

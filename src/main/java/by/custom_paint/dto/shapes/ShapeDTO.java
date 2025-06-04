@@ -16,7 +16,7 @@ public class ShapeDTO implements Serializable {
     private final ColorDTO fillColor, borderColor;
     private final double borderWidth;
 
-    private final String shapeType;
+    protected final String shapeType;
 
     @Serial
     private final static long serialVersionUID = 1L;
@@ -33,6 +33,10 @@ public class ShapeDTO implements Serializable {
     }
 
     public Shape toShape() {
+        if (!ShapeFactory.getInstance().containsShapeType(this.shapeType)) {
+            return null;
+        }
+
         Shape shape = ShapeFactory.getInstance().createShape(this.shapeType);
 
         shape.setStartPoint(this.startPoint.getX(), this.startPoint.getY());

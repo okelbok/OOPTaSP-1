@@ -18,11 +18,11 @@ public class ShapeFactory {
         this.shapeCreators = new LinkedHashMap<>()
         {
             {
-                put("LineShape", LineShape::new);
-                put("RectangleShape", RectangleShape::new);
-                put("EllipseShape", EllipseShape::new);
-                put("PolygonShape", PolygonShape::new);
-                put("PolylineShape", PolylineShape::new);
+                put(LineShape.class.getSimpleName(), LineShape::new);
+                put(RectangleShape.class.getSimpleName(), RectangleShape::new);
+                put(EllipseShape.class.getSimpleName(), EllipseShape::new);
+                put(PolygonShape.class.getSimpleName(), PolygonShape::new);
+                put(PolylineShape.class.getSimpleName(), PolylineShape::new);
             }
         };
 
@@ -35,6 +35,10 @@ public class ShapeFactory {
         }
 
         return instance;
+    }
+
+    public boolean containsShapeType(String shapeType) {
+        return this.shapeTypes.contains(shapeType);
     }
 
     public Shape createShape(int shapeIndex) {

@@ -24,10 +24,11 @@ public class DrawingProcessManager implements DrawCommand {
 
     private final ShapeListCommands shapeListCommands;
 
-    public DrawingProcessManager(ShapeListCommands shapeListCommands, Canvas canvas) {
-        this.shapeListCommands = shapeListCommands;
+    public DrawingProcessManager(Canvas canvas, ShapeListCommands shapeListCommands) {
         this.canvas = canvas;
         this.drawingArea = canvas.getGraphicsContext2D();
+
+        this.shapeListCommands = shapeListCommands;
     }
 
     private void setCurrentShapeVerticesCount() {
