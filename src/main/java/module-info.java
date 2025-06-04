@@ -15,4 +15,8 @@ module by.custom_paint {
     opens by.custom_paint to javafx.fxml;
     opens by.custom_paint.controllers to javafx.fxml;
     exports by.custom_paint;
+
+    exports by.custom_paint.models.shapes.base;
+    exports by.custom_paint.dto.shapes;
+    exports by.custom_paint.services.plugins;
 }
