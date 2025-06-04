@@ -1,5 +1,6 @@
 package by.custom_paint.controllers;
 
+import by.custom_paint.App;
 import by.custom_paint.models.shapes.base.Shape;
 
 import by.custom_paint.managers.*;
@@ -69,6 +70,15 @@ public class MainController implements Initializable {
     }
 
     @FXML
+    private void drawingProcessUpdated() {
+        this.drawingProcessManager.updateDrawingProcess(
+                this.fillColorPicker.getValue(),
+                this.borderColorPicker.getValue(),
+                this.borderWidth
+        );
+    }
+
+    @FXML
     private void mousePressed(MouseEvent event) {
         this.drawingProcessManager.handleMousePressed(
                 event,
@@ -101,12 +111,14 @@ public class MainController implements Initializable {
 
     @FXML
     private void loadFromFileRequested() {
-
+        if (this.fileManager.loadFromFile()) {
+            this.undoRedoManager.clearHistory();
+        }
     }
 
     @FXML
     private void saveToFileRequested() {
-
+        this.fileManager.saveToFile();
     }
 
     private void setEventListeners() {
@@ -114,6 +126,8 @@ public class MainController implements Initializable {
             this.borderWidth = (int) this.borderWidthSlider.getValue();
 
             this.borderWidthLabel.setText(String.valueOf(this.borderWidth));
+
+            this.drawingProcessUpdated();
         });
     }
 
@@ -139,7 +153,7 @@ public class MainController implements Initializable {
         this.shapeManager = ShapeManager.getInstance();
         this.drawingProcessManager = new DrawingProcessManager(this.shapeManager, this.canvas);
         this.undoRedoManager = new UndoRedoManager(this.shapeManager, this.drawingProcessManager);
-        this.fileManager = new FileManager();
+        this.fileManager = new FileManager(App.getStage(), this.shapeManager, this.drawingProcessManager);
 
         this.shapeManager.addObserver(this.undoRedoManager);
     }

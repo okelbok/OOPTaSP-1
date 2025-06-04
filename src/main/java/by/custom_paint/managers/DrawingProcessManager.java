@@ -86,6 +86,14 @@ public class DrawingProcessManager implements DrawCommand {
         return this.currentShape;
     }
 
+    public void updateDrawingProcess(Color fillColor, Color borderColor, int borderWidth) {
+        if (this.currentShape != null) {
+            this.currentShape.setFillColor(fillColor);
+            this.currentShape.setBorderColor(borderColor);
+            this.currentShape.setBorderWidth(borderWidth);
+        }
+    }
+
     public void handleMousePressed(MouseEvent event, int shapeIndex, Color fillColor, Color borderColor, int borderWidth) {
         this.isClicked = true;
 

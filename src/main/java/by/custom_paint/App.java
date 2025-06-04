@@ -15,14 +15,22 @@ import javafx.scene.Scene;
 import javafx.scene.image.Image;
 
 public class App extends Application {
+    private static Stage stage;
+
     public static Image getMainIcon() {
         InputStream iconStream = App.class.getResourceAsStream("images/main_icon.png");
 
         return new Image(Objects.requireNonNull(iconStream));
     }
 
+    public static Stage getStage() {
+        return App.stage;
+    }
+
     @Override
     public void start(Stage stage) throws IOException {
+        App.stage = stage;
+
         FXMLLoader loader = new FXMLLoader(App.class.getResource("views/main_view.fxml"));
         Scene scene = new Scene(loader.load());
 

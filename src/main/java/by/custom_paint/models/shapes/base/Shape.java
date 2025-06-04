@@ -6,9 +6,9 @@ import javafx.scene.paint.Color;
 import javafx.scene.canvas.GraphicsContext;
 
 public abstract class Shape {
-    private Point2D startPoint, endPoint;
+    private transient Point2D startPoint, endPoint;
 
-    private Color fillColor, borderColor;
+    private transient Color fillColor, borderColor;
     private double borderWidth;
 
     private boolean isPolyVertex = false;

@@ -10,6 +10,7 @@ module by.custom_paint {
     requires org.kordamp.bootstrapfx.core;
     requires eu.hansolo.tilesfx;
     requires java.sql;
+    requires java.compiler;
 
     opens by.custom_paint to javafx.fxml;
     opens by.custom_paint.controllers to javafx.fxml;

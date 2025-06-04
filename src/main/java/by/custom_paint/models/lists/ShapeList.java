@@ -6,6 +6,7 @@ import java.util.ArrayList;
 
 public class ShapeList implements List<Shape> {
     private final ArrayList<Shape> shapes;
+
     private Shape next = null;
 
     public ShapeList() {

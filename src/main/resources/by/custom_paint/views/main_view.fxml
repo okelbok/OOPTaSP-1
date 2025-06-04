@@ -17,7 +17,7 @@
             <Insets left="3.0" right="5.0" top="60.0" />
          </VBox.margin>
       </Label>
-      <ColorPicker id="fill_color_picker" fx:id="fillColorPicker">
+      <ColorPicker id="fill_color_picker" fx:id="fillColorPicker" onAction="#drawingProcessUpdated">
          <VBox.margin>
             <Insets left="5.0" right="5.0" />
          </VBox.margin>
@@ -30,7 +30,7 @@
             <Insets left="3.0" right="5.0" top="10.0" />
          </VBox.margin>
       </Label>
-      <ColorPicker id="border_color_picker" fx:id="borderColorPicker">
+      <ColorPicker id="border_color_picker" fx:id="borderColorPicker" onAction="#drawingProcessUpdated">
          <VBox.margin>
             <Insets left="5.0" right="5.0" />
          </VBox.margin>
@@ -92,12 +92,12 @@
                <KeyCodeCombination alt="UP" code="Y" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
             </accelerator></MenuItem>
          <SeparatorMenuItem mnemonicParsing="false" />
-         <MenuItem id="load_menu_item" fx:id="loadFromFileRequested" mnemonicParsing="false" text="    Load From File">
+         <MenuItem id="load_menu_item" mnemonicParsing="false" onAction="#loadFromFileRequested" text="    Load From File">
             <accelerator>
                <KeyCodeCombination alt="UP" code="L" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
             </accelerator>
          </MenuItem>
-         <MenuItem id="save_menu_item" fx:id="saveToFileRequested" mnemonicParsing="false" text="    Save To File">
+         <MenuItem id="save_menu_item" mnemonicParsing="false" onAction="#saveToFileRequested" text="    Save To File">
             <accelerator>
                <KeyCodeCombination alt="UP" code="S" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
             </accelerator>
