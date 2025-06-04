@@ -51,32 +51,32 @@
       </Label>
    </VBox>
    <HBox id="shapes_hbox" alignment="CENTER" layoutX="50.0" layoutY="-1.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="50.0" prefWidth="650.0" AnchorPane.leftAnchor="50.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-      <Button id="line_button" mnemonicParsing="false" onAction="#choiceItemClicked" prefHeight="50.0" prefWidth="45.0">
+      <Button id="line_button" mnemonicParsing="false" onAction="#shapeButtonClicked" prefHeight="50.0" prefWidth="45.0">
          <HBox.margin>
             <Insets bottom="5.0" left="10.0" right="10.0" top="5.0" />
          </HBox.margin>
       </Button>
-      <Button id="rectangle_button" layoutX="310.0" layoutY="10.0" mnemonicParsing="false" onAction="#choiceItemClicked" prefHeight="50.0" prefWidth="45.0" styleClass="button">
+      <Button id="rectangle_button" layoutX="310.0" layoutY="10.0" mnemonicParsing="false" onAction="#shapeButtonClicked" prefHeight="50.0" prefWidth="45.0" styleClass="button">
          <HBox.margin>
             <Insets bottom="5.0" left="10.0" right="10.0" top="5.0" />
          </HBox.margin>
       </Button>
-      <Button id="ellipse_button" layoutX="284.0" layoutY="10.0" mnemonicParsing="false" onAction="#choiceItemClicked" prefHeight="50.0" prefWidth="45.0" styleClass="button">
+      <Button id="ellipse_button" layoutX="284.0" layoutY="10.0" mnemonicParsing="false" onAction="#shapeButtonClicked" prefHeight="50.0" prefWidth="45.0" styleClass="button">
          <HBox.margin>
             <Insets bottom="5.0" left="10.0" right="10.0" top="5.0" />
          </HBox.margin>
       </Button>
-      <Button id="polygon_button" layoutX="360.0" layoutY="10.0" mnemonicParsing="false" onAction="#choiceItemClicked" prefHeight="50.0" prefWidth="45.0" styleClass="button">
+      <Button id="polygon_button" layoutX="360.0" layoutY="10.0" mnemonicParsing="false" onAction="#shapeButtonClicked" prefHeight="50.0" prefWidth="45.0" styleClass="button">
          <HBox.margin>
             <Insets bottom="5.0" left="10.0" right="10.0" top="5.0" />
          </HBox.margin>
       </Button>
-      <Button id="polyline_button" layoutX="385.0" layoutY="10.0" mnemonicParsing="false" onAction="#choiceItemClicked" prefHeight="50.0" prefWidth="45.0" styleClass="button">
+      <Button id="polyline_button" layoutX="385.0" layoutY="10.0" mnemonicParsing="false" onAction="#shapeButtonClicked" prefHeight="50.0" prefWidth="45.0" styleClass="button">
          <HBox.margin>
             <Insets bottom="5.0" left="10.0" right="10.0" top="5.0" />
          </HBox.margin>
       </Button>
-      <ChoiceBox fx:id="pluginsChoiceBox" onMouseClicked="#choiceItemClicked" prefHeight="26.0" prefWidth="150.0" styleClass="button">
+      <ChoiceBox fx:id="pluginsChoiceBox" prefHeight="26.0" prefWidth="150.0" styleClass="button">
          <HBox.margin>
             <Insets left="10.0" />
          </HBox.margin></ChoiceBox>
@@ -103,7 +103,7 @@
             </accelerator>
          </MenuItem>
          <SeparatorMenuItem mnemonicParsing="false" />
-         <MenuItem id="plugin_menu_item" mnemonicParsing="false" text="    Add Plugin">
+         <MenuItem id="plugin_menu_item" mnemonicParsing="false" onAction="#pluginLoadRequested" text="    Add Plugin">
             <accelerator>
                <KeyCodeCombination alt="DOWN" code="P" control="UP" meta="UP" shift="UP" shortcut="UP" />
             </accelerator>

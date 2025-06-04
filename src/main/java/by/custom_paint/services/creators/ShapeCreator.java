@@ -1,5 +1,7 @@
 package by.custom_paint.services.creators;
 
-public interface ShapeCreator<Shape> {
-    Shape create();
+import by.custom_paint.models.shapes.base.Shape;
+
+public interface ShapeCreator {
+    Shape createShape();
 }

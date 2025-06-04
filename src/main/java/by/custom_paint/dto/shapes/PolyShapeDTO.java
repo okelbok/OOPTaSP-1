@@ -20,13 +20,13 @@ public class PolyShapeDTO extends ShapeDTO {
     @Serial
     private static final long serialVersionUID = 1L;
 
-    public PolyShapeDTO(PolyShape shape) {
+    public PolyShapeDTO(Shape shape) {
         super(shape);
 
-        this.verticesCount = shape.getVerticesCount();
+        this.verticesCount = ((PolyShape) shape).getVerticesCount();
         this.vertices = new ArrayList<>();
 
-        ArrayList<Point2D> vertices = shape.getVertices();
+        ArrayList<Point2D> vertices = ((PolyShape) shape).getVertices();
 
         for (Point2D vertex : vertices) {
             this.vertices.add(new PointDTO(vertex));

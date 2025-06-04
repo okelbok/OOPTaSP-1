@@ -42,6 +42,8 @@ public class MainController implements Initializable {
     private UndoRedoManager undoRedoManager;
     private FileManager fileManager;
 
+    private final static int BASE_SHAPES_COUNT = 5;
+
     private void setCurrentShapeIndex(Control control) {
         HBox parent = (HBox) control.getParent();
 
@@ -51,8 +53,10 @@ public class MainController implements Initializable {
     }
 
     @FXML
-    private void choiceItemClicked(Event event) {
+    private void shapeButtonClicked(Event event) {
         Control control = (Control) event.getSource();
+
+        this.pluginsChoiceBox.getSelectionModel().clearSelection();
 
         setCurrentShapeIndex(control);
 
@@ -121,14 +125,24 @@ public class MainController implements Initializable {
         this.fileManager.saveToFile();
     }
 
+    @FXML
+    private void pluginLoadRequested() {
+
+    }
+
     private void setEventListeners() {
-        this.borderWidthSlider.valueProperty().addListener((observableValue, number, t1) -> {
-            this.borderWidth = (int) this.borderWidthSlider.getValue();
+        this.borderWidthSlider.valueProperty().addListener(
+                (observableValue, oldValue, newValue) -> {
+                    this.borderWidth = (int) this.borderWidthSlider.getValue();
 
-            this.borderWidthLabel.setText(String.valueOf(this.borderWidth));
+                    this.borderWidthLabel.setText(String.valueOf(this.borderWidth));
 
-            this.drawingProcessUpdated();
+                    this.drawingProcessUpdated();
         });
+
+        this.pluginsChoiceBox.getSelectionModel().selectedIndexProperty().addListener(
+                (observableValue, oldValue, newValue) ->
+                        this.currentShapeIndex = BASE_SHAPES_COUNT + newValue.intValue());
     }
 
     private void setInitialLayout() {

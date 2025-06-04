@@ -11,11 +11,11 @@ import java.util.LinkedHashMap;
 public class ShapeFactory {
     private static ShapeFactory instance;
 
-    private final LinkedHashMap<String, ShapeCreator<Shape>> shapeCreators;
+    private final LinkedHashMap<String, ShapeCreator> shapeCreators;
     private final ArrayList<String> shapeTypes;
 
     private ShapeFactory() {
-        shapeCreators = new LinkedHashMap<>()
+        this.shapeCreators = new LinkedHashMap<>()
         {
             {
                 put("LineShape", LineShape::new);
@@ -26,7 +26,7 @@ public class ShapeFactory {
             }
         };
 
-        shapeTypes = new ArrayList<>(shapeCreators.keySet());
+        this.shapeTypes = new ArrayList<>(shapeCreators.keySet());
     }
 
     public static ShapeFactory getInstance() {
@@ -38,18 +38,18 @@ public class ShapeFactory {
     }
 
     public Shape createShape(int shapeIndex) {
-        ShapeCreator<Shape> creator = shapeCreators.get(this.shapeTypes.get(shapeIndex));
+        ShapeCreator creator = this.shapeCreators.get(this.shapeTypes.get(shapeIndex));
 
-        return creator.create();
+        return creator.createShape();
     }
 
     public Shape createShape(String shapeType) {
-        ShapeCreator<Shape> creator = shapeCreators.get(shapeType);
+        ShapeCreator creator = this.shapeCreators.get(shapeType);
 
-        return creator.create();
+        return creator.createShape();
     }
 
-    public void addShapeType(String shapeType, ShapeCreator<Shape> creator) {
+    public void addShapeType(String shapeType, ShapeCreator creator) {
         this.shapeTypes.add(shapeType);
 
         this.shapeCreators.put(shapeType, creator);
